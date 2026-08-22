@@ -1,5 +1,6 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
+import EfficiencyComparison from "../components/EfficiencyComparison.astro";
 
 const advantages = [
   ["Narrow by design", "A predictable set of core columns keeps the modeled layer compact. Query only the activities, time range, and features the question needs."],
@@ -21,22 +22,7 @@ const advantages = [
   </header>
 
   <section class="section-tight">
-    <div class="shell contrast" aria-label="Comparison of layered modeling and Activity Schema updates">
-      <article>
-        <span class="mono label">Layered model</span>
-        <div class="cascade">
-          <span>source</span><i>→</i><span>staging</span><i>→</i><span>model</span><i>→</i><span>mart</span><i>→</i><span>answer</span>
-        </div>
-        <p>A change can cascade through dependent layers.</p>
-      </article>
-      <article class="activity-way">
-        <span class="mono label">Activity Schema</span>
-        <div class="cascade">
-          <span>new events</span><i>→</i><strong>activity stream</strong><i>→</i><span>answer</span>
-        </div>
-        <p>Append the new activity data, then shape it at query time.</p>
-      </article>
-    </div>
+    <div class="shell"><EfficiencyComparison /></div>
   </section>
 
   <section class="section">
@@ -91,16 +77,6 @@ const advantages = [
 </BaseLayout>
 
 <style>
-  .contrast { display: grid; grid-template-columns: 1fr 1fr; border: 1px solid var(--line); }
-  .contrast article { min-width: 0; padding: clamp(24px, 5vw, 52px); background: var(--white); }
-  .contrast article + article { border-left: 1px solid var(--line); }
-  .contrast .activity-way { border-top: 3px solid var(--seafoam); }
-  .label { display: block; margin-bottom: 40px; color: var(--steel); font-size: 0.68rem; letter-spacing: 0.08em; text-transform: uppercase; }
-  .cascade { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; margin-bottom: 30px; }
-  .cascade span, .cascade strong { padding: 8px 10px; border: 1px solid var(--line); color: var(--navy); font-size: 0.74rem; font-weight: 500; }
-  .cascade strong { border-color: var(--seafoam); background: rgba(68, 180, 139, 0.06); }
-  .cascade i { color: var(--fog); font-style: normal; }
-  .contrast p { max-width: 480px; margin: 0; color: var(--steel); font-size: 0.9rem; }
   .section-head, .two-column { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(48px, 8vw, 100px); }
   .advantage-grid { display: grid; grid-template-columns: repeat(4, 1fr); margin-top: 72px; border-block: 1px solid var(--line); }
   .advantage-grid article { min-height: 310px; padding: 24px; border-right: 1px solid var(--line); }
@@ -113,8 +89,7 @@ const advantages = [
   .truth-section p { color: rgba(255, 255, 255, 0.68); }
   .truth-section .button-secondary { border-color: rgba(255, 255, 255, 0.5); color: var(--white); background: transparent; }
   @media (max-width: 900px) {
-    .contrast, .section-head, .two-column { grid-template-columns: 1fr; }
-    .contrast article + article { border-top: 1px solid var(--line); border-left: 0; }
+    .section-head, .two-column { grid-template-columns: 1fr; }
     .advantage-grid { grid-template-columns: repeat(2, 1fr); }
     .advantage-grid article:nth-child(2) { border-right: 0; }
     .advantage-grid article:nth-child(-n + 2) { border-bottom: 1px solid var(--line); }

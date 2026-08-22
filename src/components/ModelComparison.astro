@@ -1,0 +1,115 @@
+<figure class="model-comparison" aria-labelledby="model-comparison-caption">
+  <figcaption id="model-comparison-caption">
+    <span class="mono">FIG 02</span>
+    <p><strong>Same sources. Same consumers.</strong> The difference is how much modeled structure sits between them.</p>
+  </figcaption>
+  <div class="diagram-scroll">
+    <svg viewBox="0 0 760 440" role="img" aria-labelledby="model-title model-desc">
+      <title id="model-title">Layered modeling compared with Activity Schema</title>
+      <desc id="model-desc">Traditional modeling sends three sources through several dependent models before reaching three consumers. Activity Schema sends the same sources into one shared activity layer used directly by those consumers.</desc>
+      <defs>
+        <marker id="model-arrow-muted" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+          <path d="M0 0 8 4 0 8Z" fill="#a9acb6"></path>
+        </marker>
+        <marker id="model-arrow-focus" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+          <path d="M0 0 8 4 0 8Z" fill="#167e6c"></path>
+        </marker>
+      </defs>
+
+      <g class="section-label">
+        <text x="0" y="24">TRADITIONAL MODELING</text>
+        <text class="section-note" x="760" y="24" text-anchor="end">DEPENDENCY CHAIN</text>
+      </g>
+      <line class="divider" x1="0" y1="204" x2="760" y2="204"></line>
+      <g class="column-labels">
+        <text x="52" y="55">SOURCES</text>
+        <text x="324" y="55">MODELED LAYERS</text>
+        <text x="654" y="55">CONSUMERS</text>
+      </g>
+      <g class="connectors muted" marker-end="url(#model-arrow-muted)">
+        <path d="M136 86 H206 Q216 86 216 96 V106"></path>
+        <path d="M136 126 H216"></path>
+        <path d="M136 166 H206 Q216 166 216 156 V146"></path>
+        <path d="M304 126 H364"></path>
+        <path d="M452 126 H512"></path>
+        <path d="M600 126 H616 Q626 126 626 116 V86"></path>
+        <path d="M600 126 H640"></path>
+        <path d="M600 126 H616 Q626 126 626 136 V166"></path>
+      </g>
+      <g class="nodes">
+        <rect x="24" y="70" width="112" height="32"></rect><text x="80" y="90">product</text>
+        <rect x="24" y="110" width="112" height="32"></rect><text x="80" y="130">billing</text>
+        <rect x="24" y="150" width="112" height="32"></rect><text x="80" y="170">marketing</text>
+        <rect x="216" y="106" width="88" height="40"></rect><text x="260" y="130">staging</text>
+        <rect x="364" y="106" width="88" height="40"></rect><text x="408" y="130">model</text>
+        <rect x="512" y="106" width="88" height="40"></rect><text x="556" y="130">mart</text>
+        <rect x="640" y="70" width="96" height="32"></rect><text x="688" y="90">report</text>
+        <rect x="640" y="110" width="96" height="32"></rect><text x="688" y="130">analysis</text>
+        <rect x="640" y="150" width="96" height="32"></rect><text x="688" y="170">agent</text>
+      </g>
+      <path class="change-path" d="M260 168 V184 H556"></path>
+      <text class="change-label" x="408" y="180" text-anchor="middle">a source change can re-run every layer</text>
+
+      <g class="section-label focus-label">
+        <text x="0" y="244">ACTIVITY SCHEMA</text>
+        <text class="section-note" x="760" y="244" text-anchor="end">ONE SHARED CONTRACT</text>
+      </g>
+      <g class="column-labels">
+        <text x="52" y="275">SOURCES</text>
+        <text x="324" y="275">ACTIVITY LAYER</text>
+        <text x="654" y="275">CONSUMERS</text>
+      </g>
+      <g class="connectors focus" marker-end="url(#model-arrow-focus)">
+        <path d="M136 306 H274 Q284 306 284 316 V326"></path>
+        <path d="M136 346 H284"></path>
+        <path d="M136 386 H274 Q284 386 284 376 V366"></path>
+        <path d="M476 346 H616 Q626 346 626 336 V306"></path>
+        <path d="M476 346 H640"></path>
+        <path d="M476 346 H616 Q626 346 626 356 V386"></path>
+      </g>
+      <g class="nodes">
+        <rect x="24" y="290" width="112" height="32"></rect><text x="80" y="310">product</text>
+        <rect x="24" y="330" width="112" height="32"></rect><text x="80" y="350">billing</text>
+        <rect x="24" y="370" width="112" height="32"></rect><text x="80" y="390">marketing</text>
+        <rect class="focal-node" x="284" y="310" width="192" height="72"></rect>
+        <text class="focal-title" x="380" y="340">activity stream</text>
+        <text class="focal-sub" x="380" y="360">who · what · when · context</text>
+        <rect x="640" y="290" width="96" height="32"></rect><text x="688" y="310">report</text>
+        <rect x="640" y="330" width="96" height="32"></rect><text x="688" y="350">analysis</text>
+        <rect x="640" y="370" width="96" height="32"></rect><text x="688" y="390">agent</text>
+      </g>
+      <text class="append-label" x="380" y="414" text-anchor="middle">append new events · assemble each answer on demand</text>
+    </svg>
+  </div>
+</figure>
+
+<style>
+  .model-comparison { margin: 0; border-block: 1px solid var(--line); }
+  figcaption { display: grid; grid-template-columns: 80px 1fr; gap: 20px; padding: 18px 0; border-bottom: 1px solid var(--line); }
+  figcaption span { color: var(--orange); font-size: 0.62rem; letter-spacing: 0.1em; }
+  figcaption p { max-width: 580px; margin: 0; color: var(--steel); font-size: 0.8rem; }
+  figcaption strong { color: var(--navy); }
+  .diagram-scroll { overflow-x: auto; }
+  svg { min-width: 680px; font-family: Inter, ui-sans-serif, sans-serif; }
+  .section-label text, .column-labels text, .change-label, .append-label { font-family: "SFMono-Regular", Consolas, monospace; }
+  .section-label text { fill: var(--navy); font-size: 10px; font-weight: 700; letter-spacing: 0.12em; }
+  .section-label .section-note { fill: var(--fog); font-size: 8px; font-weight: 500; }
+  .focus-label text:first-child { fill: var(--seafoam-dark); }
+  .column-labels text { fill: var(--fog); font-size: 7px; letter-spacing: 0.12em; }
+  .divider { stroke: var(--line); }
+  .connectors path { fill: none; stroke-width: 1.2; }
+  .connectors.muted path { stroke: var(--fog); }
+  .connectors.focus path { stroke: var(--seafoam-dark); }
+  .nodes rect { fill: var(--white); stroke: var(--line); rx: 2px; }
+  .nodes text { fill: var(--slate); font-size: 9px; text-anchor: middle; }
+  .nodes .focal-node { fill: rgba(68, 180, 139, 0.07); stroke: var(--seafoam-dark); stroke-width: 1.2; }
+  .nodes .focal-title { fill: var(--navy); font-size: 13px; font-weight: 600; }
+  .nodes .focal-sub { fill: var(--seafoam-dark); font-family: "SFMono-Regular", Consolas, monospace; font-size: 8px; }
+  .change-path { fill: none; stroke: var(--orange); stroke-dasharray: 4 4; }
+  .change-label { fill: var(--orange); font-size: 8px; }
+  .append-label { fill: var(--seafoam-dark); font-size: 8px; }
+  @media (max-width: 620px) {
+    figcaption { grid-template-columns: 1fr; gap: 8px; }
+    svg { min-width: 720px; }
+  }
+</style>

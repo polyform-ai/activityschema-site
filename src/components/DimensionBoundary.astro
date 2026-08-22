@@ -1,0 +1,70 @@
+<figure class="dimension-figure" aria-labelledby="dimension-caption">
+  <figcaption id="dimension-caption">
+    <span class="mono">FIG 06</span>
+    <p><strong>Join reference facts. Derive temporal facts.</strong> A dimension describes a thing; the activity stream preserves what happened to it.</p>
+  </figcaption>
+  <div class="diagram-scroll">
+    <svg viewBox="0 0 760 352" role="img" aria-labelledby="dimension-title dimension-desc">
+      <title id="dimension-title">Boundary between the activity stream and dimensions</title>
+      <desc id="dimension-desc">The activity stream contains event history and joins when needed to SKU, customer, and geography dimensions. A first UTM source field is shown outside the dimension boundary because it should be derived from event history.</desc>
+      <defs>
+        <marker id="dimension-arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0 8 4 0 8Z" fill="#167e6c"></path></marker>
+      </defs>
+      <text class="column-label" x="32" y="28">EVENT HISTORY</text>
+      <text class="column-label" x="486" y="28">REFERENCE FACTS</text>
+      <g class="joins" marker-end="url(#dimension-arrow)">
+        <path d="M306 156 H390 Q404 156 404 142 V90 H474"></path>
+        <path d="M306 176 H474"></path>
+        <path d="M306 196 H390 Q404 196 404 210 V262 H474"></path>
+      </g>
+      <g class="stream-node">
+        <rect x="32" y="74" width="274" height="148"></rect>
+        <text class="tag" x="52" y="100">PRIMARY MODELED LAYER</text>
+        <text class="title" x="52" y="134">Activity stream</text>
+        <text class="field" x="52" y="166">customer · ts · activity</text>
+        <text class="field" x="52" y="186">features · revenue impact</text>
+        <text class="note" x="52" y="210">immutable history of what happened</text>
+      </g>
+      <g class="dimension-node">
+        <rect x="474" y="58" width="250" height="64"></rect>
+        <text class="tag" x="492" y="80">SKU DIMENSION</text><text class="field" x="492" y="102">product name · category · hierarchy</text>
+        <rect x="474" y="144" width="250" height="64"></rect>
+        <text class="tag" x="492" y="166">CUSTOMER REFERENCE</text><text class="field" x="492" y="188">current attributes · identity mapping</text>
+        <rect x="474" y="230" width="250" height="64"></rect>
+        <text class="tag" x="492" y="252">GEOGRAPHY</text><text class="field" x="492" y="274">country · region · currency</text>
+      </g>
+      <text class="join-label" x="390" y="168" text-anchor="middle">JOIN WHEN NEEDED</text>
+      <g class="excluded">
+        <path d="M32 302 H724"></path>
+        <text class="stop" x="32" y="332">×</text>
+        <text class="field" x="54" y="330">first_utm_source</text>
+        <text class="reason" x="218" y="330">depends on “first” → derive from activities, do not freeze in a dimension</text>
+      </g>
+    </svg>
+  </div>
+</figure>
+
+<style>
+  .dimension-figure { margin: 0; border-block: 1px solid var(--line); background: var(--white); }
+  figcaption { display: grid; grid-template-columns: 80px 1fr; gap: 20px; padding: 18px 0; border-bottom: 1px solid var(--line); }
+  figcaption span { color: var(--orange); font-size: 0.62rem; letter-spacing: 0.1em; }
+  figcaption p { max-width: 650px; margin: 0; color: var(--steel); font-size: 0.8rem; }
+  figcaption strong { color: var(--navy); }
+  .diagram-scroll { overflow-x: auto; }
+  svg { min-width: 700px; font-family: Inter, ui-sans-serif, sans-serif; }
+  .column-label, .tag, .field, .note, .join-label, .reason { font-family: "SFMono-Regular", Consolas, monospace; }
+  .column-label { fill: var(--fog); font-size: 8px; letter-spacing: 0.1em; }
+  .joins path { fill: none; stroke: var(--seafoam-dark); stroke-width: 1.2; }
+  .stream-node rect { fill: rgba(68, 180, 139, 0.07); stroke: var(--seafoam-dark); stroke-width: 1.2; rx: 2px; }
+  .dimension-node rect { fill: var(--white); stroke: var(--line); rx: 2px; }
+  .tag { fill: var(--seafoam-dark); font-size: 8px; letter-spacing: 0.08em; }
+  .title { fill: var(--navy); font-size: 19px; font-weight: 600; }
+  .field { fill: var(--slate); font-size: 9px; }
+  .note { fill: var(--fog); font-size: 8px; }
+  .join-label { fill: var(--seafoam-dark); font-size: 7px; letter-spacing: 0.08em; }
+  .excluded path { stroke: var(--orange); stroke-dasharray: 4 4; }
+  .excluded .stop { fill: var(--orange); font-size: 18px; font-weight: 700; }
+  .excluded .field, .excluded .reason { fill: var(--orange); }
+  .reason { font-size: 8px; }
+  @media (max-width: 620px) { figcaption { grid-template-columns: 1fr; gap: 8px; } }
+</style>

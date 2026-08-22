@@ -1,5 +1,6 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
+import GovernedContextFlow from "../components/GovernedContextFlow.astro";
 
 const safeguards = [
   ["Permission", "The provider decides which activities, questions, and outputs are allowed."],
@@ -22,15 +23,7 @@ const safeguards = [
   </header>
 
   <section class="section-tight">
-    <div class="shell flow" aria-label="Potential flow for governed activity context sharing">
-      <article><span class="mono">01</span><h3>Discover</h3><p>Providers publish the activities they can answer from.</p></article>
-      <i aria-hidden="true">→</i>
-      <article><span class="mono">02</span><h3>Request</h3><p>A buyer or agent submits a question, purpose, and constraints.</p></article>
-      <i aria-hidden="true">→</i>
-      <article><span class="mono">03</span><h3>Run locally</h3><p>The request is translated into permitted activity queries near the data.</p></article>
-      <i aria-hidden="true">→</i>
-      <article><span class="mono">04</span><h3>Deliver</h3><p>Approved results enrich the agent’s context with provenance.</p></article>
-    </div>
+    <div class="shell"><GovernedContextFlow /></div>
   </section>
 
   <section class="section">
@@ -91,11 +84,6 @@ const safeguards = [
   .status { display: grid; grid-template-columns: auto minmax(0, 560px); align-items: center; gap: 16px; margin-top: 40px; }
   .status span { padding: 7px 9px; border: 1px solid var(--orange); color: var(--orange); font-size: 0.68rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; }
   .status p { margin: 0; color: var(--steel); font-size: 0.84rem; }
-  .flow { display: grid; grid-template-columns: 1fr auto 1fr auto 1fr auto 1fr; align-items: stretch; border-block: 1px solid var(--line); }
-  .flow article { min-height: 270px; padding: 24px; }
-  .flow article span { display: block; margin-bottom: 90px; color: var(--seafoam-dark); font-size: 0.68rem; }
-  .flow article p { margin: 0; color: var(--steel); font-size: 0.86rem; }
-  .flow i { align-self: center; color: var(--fog); font-style: normal; }
   .split { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(48px, 8vw, 100px); }
   .native-section { background: var(--white); }
   .safeguard-section { background: var(--midnight); }
@@ -109,15 +97,10 @@ const safeguards = [
   .invitation-section { background: var(--white); }
   .invitation { max-width: 900px; margin-left: max(20px, calc((100vw - var(--max-width)) / 2)); }
   @media (max-width: 900px) {
-    .flow { grid-template-columns: 1fr 1fr; }
-    .flow i { display: none; }
-    .flow article { min-height: 230px; border-bottom: 1px solid var(--line); }
     .split { grid-template-columns: 1fr; }
   }
   @media (max-width: 560px) {
-    .status, .flow { grid-template-columns: 1fr; }
+    .status { grid-template-columns: 1fr; }
     .status span { width: fit-content; }
-    .flow article { min-height: auto; }
-    .flow article span { margin-bottom: 44px; }
   }
 </style>

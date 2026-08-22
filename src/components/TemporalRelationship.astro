@@ -1,0 +1,77 @@
+<figure class="temporal-figure" aria-labelledby="temporal-caption">
+  <figcaption id="temporal-caption">
+    <span class="mono">FIG 04</span>
+    <p><strong>Last before keeps the cohort row intact.</strong> It selects the most recent matching event that happened before it.</p>
+  </figcaption>
+  <div class="diagram-scroll">
+    <svg viewBox="0 0 760 300" role="img" aria-labelledby="temporal-title temporal-desc">
+      <title id="temporal-title">Last before temporal relationship</title>
+      <desc id="temporal-desc">A customer timeline from 8:42 to 10:08. The opened email at 9:04 is selected because it is the last email before the completed order at 9:41. The later opened email is excluded.</desc>
+      <line class="axis" x1="48" y1="150" x2="716" y2="150"></line>
+      <path class="selection-window" d="M226 90 V72 H454 V90"></path>
+      <text class="window-label" x="340" y="58" text-anchor="middle">SEARCH WINDOW · BEFORE THE COHORT</text>
+
+      <g class="event muted" transform="translate(90 0)">
+        <line x1="0" y1="150" x2="0" y2="112"></line><circle cx="0" cy="150" r="4"></circle>
+        <text class="event-name" x="0" y="100" text-anchor="middle">started_session</text>
+        <text class="event-time" x="0" y="178" text-anchor="middle">08:42</text>
+      </g>
+      <g class="event selected" transform="translate(226 0)">
+        <line x1="0" y1="150" x2="0" y2="112"></line><circle cx="0" cy="150" r="7"></circle>
+        <text class="event-name" x="0" y="100" text-anchor="middle">opened_email</text>
+        <text class="event-time" x="0" y="178" text-anchor="middle">09:04</text>
+        <text class="event-tag" x="0" y="204" text-anchor="middle">SELECTED · LAST BEFORE</text>
+      </g>
+      <g class="event muted" transform="translate(330 0)">
+        <line x1="0" y1="150" x2="0" y2="188"></line><circle cx="0" cy="150" r="4"></circle>
+        <text class="event-name below" x="0" y="220" text-anchor="middle">viewed_pricing</text>
+        <text class="event-time" x="0" y="136" text-anchor="middle">09:21</text>
+      </g>
+      <g class="event cohort" transform="translate(454 0)">
+        <line x1="0" y1="150" x2="0" y2="112"></line><circle cx="0" cy="150" r="7"></circle>
+        <text class="event-name" x="0" y="100" text-anchor="middle">completed_order</text>
+        <text class="event-time" x="0" y="178" text-anchor="middle">09:41</text>
+        <text class="event-tag" x="0" y="204" text-anchor="middle">COHORT · ONE RESULT ROW</text>
+      </g>
+      <g class="event excluded" transform="translate(620 0)">
+        <line x1="0" y1="150" x2="0" y2="112"></line><circle cx="0" cy="150" r="4"></circle>
+        <text class="event-name" x="0" y="100" text-anchor="middle">opened_email</text>
+        <text class="event-time" x="0" y="178" text-anchor="middle">10:08</text>
+        <text class="event-tag" x="0" y="204" text-anchor="middle">AFTER · EXCLUDED</text>
+      </g>
+
+      <g class="query-line">
+        <text x="48" y="268">completed_order</text>
+        <text class="operator" x="190" y="268">← last before ←</text>
+        <text x="312" y="268">opened_email</text>
+      </g>
+    </svg>
+  </div>
+</figure>
+
+<style>
+  .temporal-figure { margin: 0; border-block: 1px solid var(--line); background: var(--white); }
+  figcaption { display: grid; grid-template-columns: 80px 1fr; gap: 20px; padding: 18px 0; border-bottom: 1px solid var(--line); }
+  figcaption span { color: var(--orange); font-size: 0.62rem; letter-spacing: 0.1em; }
+  figcaption p { max-width: 620px; margin: 0; color: var(--steel); font-size: 0.8rem; }
+  figcaption strong { color: var(--navy); }
+  .diagram-scroll { overflow-x: auto; }
+  svg { min-width: 680px; font-family: Inter, ui-sans-serif, sans-serif; }
+  .axis { stroke: var(--line); stroke-width: 1; }
+  .selection-window { fill: none; stroke: var(--seafoam-dark); stroke-width: 1; }
+  .window-label, .event-time, .event-tag, .query-line text { font-family: "SFMono-Regular", Consolas, monospace; }
+  .window-label { fill: var(--seafoam-dark); font-size: 8px; letter-spacing: 0.08em; }
+  .event line { stroke: var(--line); }
+  .event circle { fill: var(--white); stroke: var(--fog); stroke-width: 1.5; }
+  .event-name { fill: var(--slate); font-size: 9px; font-weight: 600; }
+  .event-time { fill: var(--fog); font-size: 8px; }
+  .event-tag { fill: var(--fog); font-size: 7px; letter-spacing: 0.08em; }
+  .selected circle { fill: var(--seafoam); stroke: var(--seafoam-dark); }
+  .selected .event-name, .selected .event-tag { fill: var(--seafoam-dark); }
+  .cohort circle { fill: var(--orange); stroke: var(--orange); }
+  .cohort .event-name, .cohort .event-tag { fill: var(--orange); }
+  .excluded { opacity: 0.5; }
+  .query-line text { fill: var(--navy); font-size: 9px; font-weight: 600; }
+  .query-line .operator { fill: var(--seafoam-dark); font-weight: 400; }
+  @media (max-width: 620px) { figcaption { grid-template-columns: 1fr; gap: 8px; } }
+</style>

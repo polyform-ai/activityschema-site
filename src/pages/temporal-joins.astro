@@ -1,5 +1,6 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
+import TemporalRelationship from "../components/TemporalRelationship.astro";
 
 const relationships = [
   ["First before", "The earliest related activity before the cohort event."],
@@ -24,40 +25,7 @@ const relationships = [
 
   <section class="section-tight timeline-section">
     <div class="shell">
-      <div class="timeline-card card">
-        <div class="question">
-          <span class="mono">Question</span>
-          <p>Which email did a customer open before completing an order?</p>
-        </div>
-        <div class="timeline" role="img" aria-label="A timeline showing opened email as the last activity before completed order">
-          <div class="axis" aria-hidden="true"></div>
-          <div class="event muted first-event">
-            <span class="dot"></span>
-            <code>started_session</code>
-            <small>08:42</small>
-          </div>
-          <div class="event selected second-event">
-            <span class="dot"></span>
-            <code>opened_email</code>
-            <small>09:04</small>
-            <b>last before</b>
-          </div>
-          <div class="event cohort third-event">
-            <span class="dot"></span>
-            <code>completed_order</code>
-            <small>09:41</small>
-            <b>cohort</b>
-          </div>
-          <div class="event muted fourth-event">
-            <span class="dot"></span>
-            <code>opened_email</code>
-            <small>10:08</small>
-          </div>
-        </div>
-        <div class="query-plan mono">
-          <span>for every</span><code>completed_order</code><span>append</span><code>last before opened_email</code>
-        </div>
-      </div>
+      <TemporalRelationship />
     </div>
   </section>
 
@@ -126,11 +94,6 @@ const relationships = [
     overflow: hidden;
   }
 
-  .timeline-card {
-    padding: clamp(24px, 5vw, 48px);
-  }
-
-  .question span,
   .input-label {
     color: var(--steel);
     font-size: 0.66rem;
@@ -138,110 +101,6 @@ const relationships = [
     text-transform: uppercase;
   }
 
-  .question p {
-    max-width: 720px;
-    margin: 12px 0 72px;
-    color: var(--navy);
-    font-size: clamp(1.3rem, 3vw, 2rem);
-    font-weight: 500;
-    line-height: 1.2;
-    letter-spacing: -0.025em;
-  }
-
-  .timeline {
-    position: relative;
-    display: grid;
-    min-width: 680px;
-    grid-template-columns: repeat(4, 1fr);
-    padding-block: 26px 34px;
-  }
-
-  .axis {
-    position: absolute;
-    top: 31px;
-    right: 5%;
-    left: 5%;
-    height: 1px;
-    background: var(--line);
-  }
-
-  .event {
-    position: relative;
-    display: grid;
-    justify-items: center;
-    gap: 8px;
-    text-align: center;
-  }
-
-  .dot {
-    z-index: 1;
-    width: 12px;
-    height: 12px;
-    border: 3px solid var(--white);
-    border-radius: 50%;
-    background: var(--fog);
-    box-shadow: 0 0 0 1px var(--line);
-  }
-
-  .event code {
-    font-size: 0.72rem;
-  }
-
-  .event small {
-    color: var(--fog);
-    font-size: 0.68rem;
-  }
-
-  .event b {
-    position: absolute;
-    top: -24px;
-    padding: 4px 8px;
-    border-radius: var(--radius);
-    font-size: 0.58rem;
-    font-weight: 500;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-  }
-
-  .event.selected .dot {
-    background: var(--seafoam);
-    box-shadow: 0 0 0 5px rgba(68, 180, 139, 0.14);
-  }
-
-  .event.selected b {
-    background: rgba(68, 180, 139, 0.12);
-    color: var(--seafoam-dark);
-  }
-
-  .event.cohort .dot {
-    background: var(--navy);
-    box-shadow: 0 0 0 5px rgba(17, 26, 74, 0.1);
-  }
-
-  .event.cohort b {
-    background: rgba(17, 26, 74, 0.08);
-    color: var(--navy);
-  }
-
-  .event.muted code {
-    color: var(--fog);
-  }
-
-  .query-plan {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    gap: 10px;
-    padding: 14px 16px;
-    border-radius: var(--radius);
-    background: var(--midnight);
-    color: rgba(255, 255, 255, 0.48);
-    font-size: 0.72rem;
-  }
-
-  .query-plan code {
-    color: var(--seafoam-light);
-  }
 
   .split {
     display: grid;
@@ -307,10 +166,6 @@ const relationships = [
   .equals {
     align-self: center;
     color: var(--fog);
-  }
-
-  .timeline-card {
-    overflow-x: auto;
   }
 
   @media (max-width: 900px) {
