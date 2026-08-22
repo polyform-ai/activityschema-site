@@ -1,0 +1,97 @@
+<figure class="context-figure" aria-labelledby="context-caption">
+  <figcaption id="context-caption">
+    <span class="mono">FIG 07</span>
+    <p><strong>Share the language, not the raw warehouse.</strong> Discovery happens across companies; governed analysis stays beside the provider’s data.</p>
+  </figcaption>
+  <div class="diagram-scroll">
+    <svg viewBox="0 0 780 344" role="img" aria-labelledby="context-title context-desc">
+      <title id="context-title">Governed activity context exchange</title>
+      <desc id="context-desc">An agent discovers advertised activities, submits a constrained request to a provider, the provider runs an approved query inside its own warehouse boundary, and a filtered result with provenance is returned. Raw rows do not leave the boundary.</desc>
+      <defs>
+        <marker id="context-arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0 8 4 0 8Z" fill="#70747f"></path></marker>
+        <marker id="context-arrow-focus" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0 8 4 0 8Z" fill="#167e6c"></path></marker>
+      </defs>
+      <text class="zone-label" x="24" y="28">REQUESTING SYSTEM</text>
+      <text class="zone-label" x="350" y="28">PROVIDER CONTROLLED</text>
+      <rect class="trust-boundary" x="334" y="42" width="422" height="224"></rect>
+      <text class="boundary-label" x="736" y="60" text-anchor="end">WAREHOUSE TRUST BOUNDARY</text>
+
+      <g class="connectors" marker-end="url(#context-arrow)">
+        <path d="M154 108 H210"></path>
+        <path d="M318 108 H374"></path>
+        <path d="M482 108 H538"></path>
+        <path d="M646 108 H700"></path>
+      </g>
+      <g class="return-path" marker-end="url(#context-arrow-focus)">
+        <path d="M700 184 H174 Q154 184 154 164 V142"></path>
+      </g>
+
+      <g class="node requester">
+        <rect x="24" y="74" width="130" height="68"></rect>
+        <text class="step" x="40" y="94">01 · REQUEST</text><text class="title" x="40" y="116">Agent question</text><text class="sub" x="40" y="132">purpose · constraints</text>
+      </g>
+      <g class="node catalog">
+        <rect x="210" y="74" width="108" height="68"></rect>
+        <text class="step" x="226" y="94">02 · DISCOVER</text><text class="title" x="226" y="116">Activity catalog</text><text class="sub" x="226" y="132">available context</text>
+      </g>
+      <g class="node policy">
+        <rect x="374" y="74" width="108" height="68"></rect>
+        <text class="step" x="390" y="94">03 · GOVERN</text><text class="title" x="390" y="116">Policy gate</text><text class="sub" x="390" y="132">identity · purpose</text>
+      </g>
+      <g class="node focal">
+        <rect x="538" y="74" width="108" height="68"></rect>
+        <text class="step" x="554" y="94">04 · RUN</text><text class="title" x="554" y="116">Local query</text><text class="sub" x="554" y="132">activities · warehouse</text>
+      </g>
+      <g class="node output">
+        <rect x="700" y="74" width="56" height="68"></rect>
+        <text class="step" x="714" y="94">05</text><text class="title" x="714" y="116">Filter</text><text class="sub" x="714" y="132">result</text>
+      </g>
+
+      <text class="return-label" x="420" y="176" text-anchor="middle">APPROVED RESULT + PROVENANCE</text>
+      <g class="raw-data">
+        <rect x="374" y="208" width="272" height="36"></rect>
+        <text x="390" y="230">raw rows stay here</text>
+        <path d="M656 226 H704"></path><path class="stop-line" d="M704 214 V238"></path>
+        <text class="stop-label" x="718" y="230">NO RAW EXPORT</text>
+      </g>
+      <g class="outcomes">
+        <text x="24" y="306">BUYER</text><text class="detail" x="86" y="306">better context for the question</text>
+        <text x="390" y="306">PROVIDER</text><text class="detail" x="472" y="306">control, auditability, and value</text>
+      </g>
+    </svg>
+  </div>
+</figure>
+
+<style>
+  .context-figure { margin: 0; border-block: 1px solid var(--line); background: var(--white); }
+  figcaption { display: grid; grid-template-columns: 80px 1fr; gap: 20px; padding: 18px 0; border-bottom: 1px solid var(--line); }
+  figcaption span { color: var(--orange); font-size: 0.62rem; letter-spacing: 0.1em; }
+  figcaption p { max-width: 650px; margin: 0; color: var(--steel); font-size: 0.8rem; }
+  figcaption strong { color: var(--navy); }
+  .diagram-scroll { overflow-x: auto; }
+  svg { min-width: 720px; font-family: Inter, ui-sans-serif, sans-serif; }
+  .zone-label, .boundary-label, .step, .sub, .return-label, .raw-data text, .outcomes text { font-family: "SFMono-Regular", Consolas, monospace; }
+  .zone-label { fill: var(--fog); font-size: 8px; letter-spacing: 0.1em; }
+  .trust-boundary { fill: rgba(68, 180, 139, 0.025); stroke: var(--seafoam-dark); stroke-dasharray: 5 4; rx: 2px; }
+  .boundary-label { fill: var(--seafoam-dark); font-size: 7px; letter-spacing: 0.08em; }
+  .connectors path, .return-path path { fill: none; stroke-width: 1.2; }
+  .connectors path { stroke: var(--steel); }
+  .return-path path { stroke: var(--seafoam-dark); }
+  .node rect { fill: var(--white); stroke: var(--line); rx: 2px; }
+  .node.policy rect { stroke: var(--orange); }
+  .node.focal rect { fill: rgba(68, 180, 139, 0.07); stroke: var(--seafoam-dark); }
+  .step { fill: var(--fog); font-size: 6px; letter-spacing: 0.06em; }
+  .policy .step { fill: var(--orange); }
+  .focal .step { fill: var(--seafoam-dark); }
+  .title { fill: var(--navy); font-size: 9px; font-weight: 600; }
+  .sub { fill: var(--fog); font-size: 6px; }
+  .return-label { fill: var(--seafoam-dark); font-size: 7px; letter-spacing: 0.08em; }
+  .raw-data rect { fill: var(--canvas); stroke: var(--line); rx: 2px; }
+  .raw-data text { fill: var(--slate); font-size: 8px; }
+  .raw-data path { stroke: var(--fog); }
+  .raw-data .stop-line { stroke: var(--orange); stroke-width: 2; }
+  .raw-data .stop-label { fill: var(--orange); font-size: 7px; letter-spacing: 0.06em; }
+  .outcomes text { fill: var(--navy); font-size: 8px; font-weight: 700; letter-spacing: 0.08em; }
+  .outcomes .detail { fill: var(--steel); font-weight: 400; letter-spacing: 0; }
+  @media (max-width: 620px) { figcaption { grid-template-columns: 1fr; gap: 8px; } }
+</style>

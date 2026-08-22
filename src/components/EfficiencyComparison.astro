@@ -1,0 +1,68 @@
+<figure class="efficiency-figure" aria-labelledby="efficiency-caption">
+  <figcaption id="efficiency-caption">
+    <span class="mono">FIG 05</span>
+    <p><strong>Change propagation is the real cost.</strong> Activity Schema narrows the maintained surface to the event definition and the question being answered.</p>
+  </figcaption>
+  <div class="diagram-scroll">
+    <svg viewBox="0 0 780 324" role="img" aria-labelledby="efficiency-title efficiency-desc">
+      <title id="efficiency-title">Update work in layered modeling and Activity Schema</title>
+      <desc id="efficiency-desc">In a layered model, a source change can propagate through staging, a model, a mart, and an answer. In Activity Schema, new events are appended to the activity stream and the answer is shaped at query time.</desc>
+      <defs>
+        <marker id="eff-arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0 8 4 0 8Z" fill="#a9acb6"></path></marker>
+        <marker id="eff-arrow-focus" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0 8 4 0 8Z" fill="#167e6c"></path></marker>
+      </defs>
+      <text class="lane-title" x="0" y="26">LAYERED MODEL · REPROCESS THE CHAIN</text>
+      <line class="divider" x1="0" y1="154" x2="780" y2="154"></line>
+      <g class="flow muted" marker-end="url(#eff-arrow)">
+        <path d="M128 88 H166"></path><path d="M276 88 H314"></path><path d="M424 88 H462"></path><path d="M572 88 H610"></path>
+      </g>
+      <g class="nodes">
+        <rect x="18" y="66" width="110" height="44"></rect><text x="73" y="92">source</text>
+        <rect x="166" y="66" width="110" height="44"></rect><text x="221" y="92">staging</text>
+        <rect x="314" y="66" width="110" height="44"></rect><text x="369" y="92">model</text>
+        <rect x="462" y="66" width="110" height="44"></rect><text x="517" y="92">mart</text>
+        <rect x="610" y="66" width="110" height="44"></rect><text x="665" y="92">answer</text>
+      </g>
+      <path class="impact-bracket" d="M166 122 V136 H720 V122"></path>
+      <text class="impact-label" x="443" y="146" text-anchor="middle">DEPENDENT SURFACE THAT MAY NEED TO RUN AGAIN</text>
+
+      <text class="lane-title focus-title" x="0" y="188">ACTIVITY SCHEMA · APPEND ONCE, SHAPE ON READ</text>
+      <g class="flow focus" marker-end="url(#eff-arrow-focus)">
+        <path d="M186 246 H278"></path><path d="M502 246 H594"></path>
+      </g>
+      <g class="nodes">
+        <rect x="46" y="220" width="140" height="52"></rect><text x="116" y="244">new events</text><text class="sub" x="116" y="258">incremental append</text>
+        <rect class="focal" x="278" y="208" width="224" height="76"></rect><text class="focal-title" x="390" y="240">activity stream</text><text class="sub focal-sub" x="390" y="258">stable entity · time contract</text>
+        <rect x="594" y="220" width="140" height="52"></rect><text x="664" y="244">answer</text><text class="sub" x="664" y="258">shape on demand</text>
+      </g>
+      <text class="append-note" x="390" y="310" text-anchor="middle">SCAN ONLY THE ACTIVITIES, TIME RANGE, AND FEATURES THE QUESTION NEEDS</text>
+    </svg>
+  </div>
+</figure>
+
+<style>
+  .efficiency-figure { margin: 0; border-block: 1px solid var(--line); background: var(--white); }
+  figcaption { display: grid; grid-template-columns: 80px 1fr; gap: 20px; padding: 18px 0; border-bottom: 1px solid var(--line); }
+  figcaption span { color: var(--orange); font-size: 0.62rem; letter-spacing: 0.1em; }
+  figcaption p { max-width: 650px; margin: 0; color: var(--steel); font-size: 0.8rem; }
+  figcaption strong { color: var(--navy); }
+  .diagram-scroll { overflow-x: auto; }
+  svg { min-width: 700px; font-family: Inter, ui-sans-serif, sans-serif; }
+  .lane-title, .impact-label, .append-note { font-family: "SFMono-Regular", Consolas, monospace; }
+  .lane-title { fill: var(--navy); font-size: 9px; font-weight: 700; letter-spacing: 0.1em; }
+  .focus-title { fill: var(--seafoam-dark); }
+  .divider { stroke: var(--line); }
+  .flow path { fill: none; stroke-width: 1.2; }
+  .flow.muted path { stroke: var(--fog); }
+  .flow.focus path { stroke: var(--seafoam-dark); }
+  .nodes rect { fill: var(--white); stroke: var(--line); rx: 2px; }
+  .nodes text { fill: var(--navy); font-size: 10px; font-weight: 600; text-anchor: middle; }
+  .nodes .sub { fill: var(--fog); font-family: "SFMono-Regular", Consolas, monospace; font-size: 7px; font-weight: 400; }
+  .nodes .focal { fill: rgba(68, 180, 139, 0.07); stroke: var(--seafoam-dark); stroke-width: 1.2; }
+  .nodes .focal-title { fill: var(--navy); font-size: 14px; }
+  .nodes .focal-sub { fill: var(--seafoam-dark); }
+  .impact-bracket { fill: none; stroke: var(--orange); stroke-dasharray: 4 4; }
+  .impact-label { fill: var(--orange); font-size: 7px; letter-spacing: 0.06em; }
+  .append-note { fill: var(--seafoam-dark); font-size: 7px; letter-spacing: 0.06em; }
+  @media (max-width: 620px) { figcaption { grid-template-columns: 1fr; gap: 8px; } }
+</style>

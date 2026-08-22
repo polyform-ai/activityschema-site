@@ -1,86 +1,94 @@
 ---
 const rows = [
-  { time: "09:04", customer: "cus_102", activity: "started_session", feature: "source: organic" },
-  { time: "09:11", customer: "cus_102", activity: "viewed_pricing", feature: "plan: growth" },
-  { time: "09:18", customer: "cus_381", activity: "opened_email", feature: "campaign: welcome" },
-  { time: "09:26", customer: "cus_102", activity: "started_trial", feature: "plan: growth" },
-  { time: "09:41", customer: "cus_381", activity: "completed_order", feature: "revenue: 240" },
+  { index: "01", time: "09:04", customer: "cus_102", activity: "started_session", feature: "source · organic", focus: true },
+  { index: "02", time: "09:11", customer: "cus_102", activity: "viewed_pricing", feature: "plan · growth", focus: true },
+  { index: "03", time: "09:18", customer: "cus_381", activity: "opened_email", feature: "campaign · welcome", focus: false },
+  { index: "04", time: "09:26", customer: "cus_102", activity: "started_trial", feature: "plan · growth", focus: true },
+  { index: "05", time: "09:41", customer: "cus_381", activity: "completed_order", feature: "revenue · 240", focus: false },
 ];
 ---
 
-<div class="stream-card" aria-label="Example activity stream table">
-  <div class="card-toolbar">
-    <span class="toolbar-label mono">Activity stream</span>
-    <span class="mono">customer_stream</span>
-    <span class="status"><i></i> live model</span>
-  </div>
+<figure class="stream-figure" aria-labelledby="stream-title" aria-describedby="stream-description">
+  <figcaption>
+    <div>
+      <span class="figure-index mono">FIG 01</span>
+      <strong id="stream-title">An activity stream is an event ledger</strong>
+    </div>
+    <p id="stream-description">Every row answers the same four questions: when, who, what happened, and what context came with it.</p>
+  </figcaption>
   <div class="table-wrap">
     <table>
       <thead>
         <tr>
-          <th scope="col">ts</th>
-          <th scope="col">customer</th>
-          <th scope="col">activity</th>
-          <th scope="col">feature_json</th>
+          <th scope="col"><span class="sr-only">Sequence</span></th>
+          <th scope="col">when</th>
+          <th scope="col">who</th>
+          <th scope="col">what happened</th>
+          <th scope="col">event context</th>
         </tr>
       </thead>
       <tbody>
         {rows.map((row) => (
-          <tr>
-            <td>{row.time}</td>
-            <td>{row.customer}</td>
-            <td><span class="activity-cell">{row.activity}</span></td>
-            <td>{`{ ${row.feature} }`}</td>
+          <tr class:list={{ focus: row.focus }}>
+            <td><span class="row-index mono">{row.index}</span></td>
+            <td><time>{row.time}</time></td>
+            <td><code>{row.customer}</code></td>
+            <td><strong>{row.activity}</strong></td>
+            <td><span class="feature mono">{row.feature}</span></td>
           </tr>
         ))}
       </tbody>
     </table>
   </div>
-  <div class="stream-footer">
-    <span>One predictable shape</span>
-    <span>Every business event</span>
+  <div class="contract" aria-label="The four-part activity contract">
+    <span><b>ts</b><small>when</small></span>
+    <i aria-hidden="true">+</i>
+    <span><b>customer</b><small>who</small></span>
+    <i aria-hidden="true">+</i>
+    <span><b>activity</b><small>what</small></span>
+    <i aria-hidden="true">+</i>
+    <span><b>features</b><small>context</small></span>
   </div>
-</div>
+</figure>
 
 <style>
-  .stream-card {
-    overflow: hidden;
-    border-radius: var(--radius);
+  .stream-figure {
+    margin: 0;
+    border-block: 1px solid var(--line);
     background: var(--white);
-    box-shadow: var(--shadow-float);
   }
 
-  .card-toolbar {
+  figcaption {
     display: grid;
-    min-height: 48px;
-    grid-template-columns: 1fr auto 1fr;
-    align-items: center;
-    gap: 12px;
-    padding-inline: 16px;
+    grid-template-columns: 1fr minmax(260px, 0.75fr);
+    gap: 40px;
+    align-items: end;
+    padding: 20px 20px 24px;
     border-bottom: 1px solid var(--line);
-    color: var(--steel);
-    font-size: 0.7rem;
   }
 
-  .toolbar-label {
-    color: var(--fog);
-    font-size: 0.6rem;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-  }
-
-  .status {
-    display: inline-flex;
-    align-items: center;
-    justify-self: end;
+  figcaption > div {
+    display: grid;
     gap: 6px;
-    color: var(--seafoam-dark);
   }
 
-  .status i {
-    width: 6px;
-    height: 6px;
-    background: var(--seafoam);
+  .figure-index {
+    color: var(--orange);
+    font-size: 0.62rem;
+    letter-spacing: 0.12em;
+  }
+
+  figcaption strong {
+    color: var(--navy);
+    font-size: 1rem;
+    font-weight: 600;
+  }
+
+  figcaption p {
+    margin: 0;
+    color: var(--steel);
+    font-size: 0.78rem;
+    line-height: 1.55;
   }
 
   .table-wrap {
@@ -89,56 +97,103 @@ const rows = [
 
   table {
     width: 100%;
-    min-width: 620px;
+    min-width: 720px;
     border-collapse: collapse;
-    font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
-    font-size: 0.72rem;
     text-align: left;
   }
 
   th,
   td {
-    padding: 14px 16px;
-    border-bottom: 1px solid #eff0f2;
+    padding: 15px 18px;
+    border-bottom: 1px solid #eceef1;
     white-space: nowrap;
   }
 
   th {
     color: var(--fog);
-    font-size: 0.64rem;
+    font-family: "SFMono-Regular", Consolas, monospace;
+    font-size: 0.6rem;
     font-weight: 500;
-    letter-spacing: 0.06em;
+    letter-spacing: 0.11em;
     text-transform: uppercase;
   }
 
   td {
     color: var(--slate);
+    font-size: 0.78rem;
   }
 
   tbody tr:last-child td {
     border-bottom: 0;
   }
 
-  .activity-cell {
-    color: var(--seafoam-dark);
+  tbody tr.focus {
+    background: linear-gradient(90deg, rgba(68, 180, 139, 0.07), transparent 70%);
   }
 
-  .stream-footer {
-    display: flex;
-    justify-content: space-between;
-    padding: 14px 16px;
+  tbody tr.focus td:first-child {
+    box-shadow: inset 2px 0 var(--seafoam);
+  }
+
+  .row-index {
+    color: var(--fog);
+    font-size: 0.6rem;
+  }
+
+  td code,
+  .feature {
+    font-size: 0.7rem;
+  }
+
+  td strong {
+    color: var(--navy);
+    font-weight: 600;
+  }
+
+  .contract {
+    display: grid;
+    grid-template-columns: repeat(7, auto);
+    justify-content: start;
+    align-items: center;
+    gap: 14px;
+    padding: 18px 20px;
     border-top: 1px solid var(--line);
-    background: #fafafa;
-    color: var(--steel);
-    font-size: 0.72rem;
+    background: var(--canvas);
   }
 
-  @media (max-width: 620px) {
-    .card-toolbar {
-      grid-template-columns: 1fr auto;
+  .contract span {
+    display: grid;
+    gap: 2px;
+  }
+
+  .contract b {
+    color: var(--navy);
+    font-family: "SFMono-Regular", Consolas, monospace;
+    font-size: 0.68rem;
+    font-weight: 600;
+  }
+
+  .contract small,
+  .contract i {
+    color: var(--fog);
+    font-size: 0.62rem;
+    font-style: normal;
+  }
+
+  @media (max-width: 640px) {
+    figcaption {
+      grid-template-columns: 1fr;
+      gap: 12px;
+      padding-inline: 0;
     }
 
-    .toolbar-label {
+    .contract {
+      grid-template-columns: 1fr 1fr;
+      gap: 12px 20px;
+      padding-inline: 0;
+    }
+
+    .contract i {
       display: none;
     }
   }
