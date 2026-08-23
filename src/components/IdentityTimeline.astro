@@ -1,0 +1,91 @@
+---
+import GuideFigure from "./GuideFigure.astro";
+---
+
+<GuideFigure
+  id="identity-timeline"
+  index="09"
+  title="Identity is a time-bound mapping, not an uncontrolled merge."
+  description="Local identifiers can become known, change owners, and be corrected while the original activity history stays inspectable."
+  minWidth={880}
+>
+  <svg viewBox="0 0 880 420" role="img" aria-labelledby="identity-title identity-desc">
+    <title id="identity-title">Anonymous identifiers mapped to customers over time</title>
+    <desc id="identity-desc">A browser identifier first records anonymous activity, is associated with customer Maya after an identify event, and later changes to customer Rowan on a shared device. A separate email click identifier adds reviewed evidence for Maya without creating an overlapping mapping.</desc>
+    <defs>
+      <marker id="identity-arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+        <path d="M0 0 8 4 0 8Z" fill="#167e6c"></path>
+      </marker>
+    </defs>
+
+    <text class="axis-label" x="128" y="52">AUG 01</text>
+    <text class="axis-label" x="392" y="52">AUG 12</text>
+    <text class="axis-label" x="656" y="52">AUG 23</text>
+    <line class="axis" x1="128" y1="68" x2="816" y2="68"></line>
+    <line class="tick" x1="128" y1="60" x2="128" y2="76"></line>
+    <line class="tick" x1="392" y1="60" x2="392" y2="76"></line>
+    <line class="tick" x1="656" y1="60" x2="656" y2="76"></line>
+
+    <text class="lane-label" x="20" y="124">LOCAL IDS</text>
+    <text class="lane-label" x="20" y="272">CUSTOMER MAP</text>
+
+    <g class="local-row">
+      <rect x="128" y="96" width="688" height="52"></rect>
+      <text class="row-title" x="144" y="120">browser_7f3</text>
+      <text class="row-sub" x="144" y="136">website cookie · shared laptop</text>
+    </g>
+    <g class="local-row secondary">
+      <rect x="392" y="164" width="264" height="52"></rect>
+      <text class="row-title" x="408" y="188">email_link_22</text>
+      <text class="row-sub" x="408" y="204">reviewed supporting signal</text>
+    </g>
+
+    <g class="mapping-arrows" marker-end="url(#identity-arrow)">
+      <path d="M392 148 V236 H432 V260"></path>
+      <path d="M524 216 V236 H496 V260"></path>
+      <path d="M656 148 V236 H696 V328"></path>
+    </g>
+    <rect class="label-mask" x="300" y="208" width="88" height="16"></rect>
+    <text class="arrow-label" x="344" y="220" text-anchor="middle">IDENTIFY</text>
+    <rect class="label-mask" x="540" y="208" width="92" height="16"></rect>
+    <text class="arrow-label" x="584" y="220" text-anchor="middle">REVIEWED LINK</text>
+
+    <g class="map-row maya">
+      <rect x="392" y="260" width="264" height="52"></rect>
+      <text class="row-title" x="408" y="284">customer · maya@example.com</text>
+      <text class="row-sub" x="408" y="300">effective Aug 12 → Aug 23</text>
+    </g>
+    <g class="map-row rowan">
+      <rect x="656" y="328" width="160" height="52"></rect>
+      <text class="row-title" x="672" y="352">customer · Rowan</text>
+      <text class="row-sub" x="672" y="368">effective Aug 23 →</text>
+    </g>
+    <path class="boundary" d="M656 248 V392"></path>
+    <text class="boundary-label" x="668" y="252">NEW USER ON SHARED DEVICE</text>
+
+    <g class="legend">
+      <line x1="20" y1="404" x2="860" y2="404"></line>
+      <text x="20" y="418">ORIGINAL ACTIVITIES REMAIN · MAPPINGS ARE EFFECTIVE-DATED · CORRECTIONS ARE AUDITABLE</text>
+    </g>
+  </svg>
+</GuideFigure>
+
+<style>
+  .axis, .tick { stroke: var(--line); }
+  .axis-label, .lane-label, .row-sub, .arrow-label, .boundary-label, .legend text { font-family: "SFMono-Regular", Consolas, monospace; }
+  .axis-label { fill: var(--fog); font-size: 8px; }
+  .lane-label { fill: var(--navy); font-size: 8px; font-weight: 700; letter-spacing: 0.1em; }
+  .local-row rect, .map-row rect { fill: var(--white); stroke: var(--line); rx: 2px; }
+  .local-row.secondary rect { fill: var(--canvas); }
+  .row-title { fill: var(--navy); font-size: 10px; font-weight: 600; }
+  .row-sub { fill: var(--steel); font-size: 8px; }
+  .mapping-arrows path { fill: none; stroke: var(--seafoam-dark); stroke-width: 1.2; }
+  .label-mask { fill: var(--white); }
+  .arrow-label { fill: var(--seafoam-dark); font-size: 7px; letter-spacing: 0.08em; }
+  .map-row.maya rect { fill: rgba(68, 180, 139, 0.08); stroke: var(--seafoam-dark); }
+  .map-row.rowan rect { fill: rgba(236, 101, 43, 0.07); stroke: var(--orange); }
+  .boundary { fill: none; stroke: var(--orange); stroke-dasharray: 4 4; }
+  .boundary-label { fill: var(--orange); font-size: 7px; letter-spacing: 0.06em; }
+  .legend line { stroke: var(--line); }
+  .legend text { fill: var(--steel); font-size: 7px; letter-spacing: 0.06em; }
+</style>

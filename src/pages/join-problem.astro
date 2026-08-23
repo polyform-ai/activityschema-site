@@ -1,0 +1,57 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import TemporalRelationship from "../components/TemporalRelationship.astro";
+import RowGrainContract from "../components/RowGrainContract.astro";
+
+const choices = [
+  ["Encode attribution in the application", "Attach a campaign or channel to the order when it is created. The stored conclusion becomes difficult to change when attribution rules, devices, or repeat orders change."],
+  ["Reconstruct attribution in each query", "Repeatedly stitch identity, rank sessions, control cardinality, and select the qualifying touch. The logic becomes easy to duplicate and difficult to review."],
+];
+---
+
+<BaseLayout
+  title="The join problem — Activity Schema"
+  description="Why cross-system behavioral questions often require relationships in time rather than pre-modeled foreign keys."
+  path="/join-problem/"
+>
+  <header class="page-hero shell">
+    <p class="eyebrow">The join problem</p>
+    <h1>What if the relationship you need is not a foreign key?</h1>
+    <p class="lede">An order and a marketing session can describe the same customer without pointing directly to one another. The business question is temporal: <strong>which session happened before this order?</strong></p>
+  </header>
+
+  <section class="section-tight"><div class="shell"><TemporalRelationship /></div></section>
+
+  <section class="section">
+    <div class="shell split">
+      <div><p class="eyebrow">A familiar attribution problem</p><h2>Where did we acquire the customer behind this order?</h2></div>
+      <div class="prose"><p>Dimensional models work well when facts, dimensions, grains, and reusable relationships are known. Cross-system behavioral questions are harder because the useful relationship may depend on identity and time rather than a stored key.</p><p>For repeat orders, the company might need first touch, last touch, last non-direct touch, or the last session within a particular window. Those are different analytical relationships over the same historical events.</p></div>
+    </div>
+    <div class="shell choice-grid">
+      {choices.map(([title, description], index) => <article><span class="mono">0{index + 1}</span><h3>{title}</h3><p>{description}</p></article>)}
+    </div>
+  </section>
+
+  <section class="section relationship-section">
+    <div class="shell split">
+      <div><p class="eyebrow">Make time the explicit relationship</p><h2>Ask the question the way a person asks it.</h2></div>
+      <div class="prose"><p>Start with the order as the cohort. Then append the <strong>last session before</strong> it, the <strong>first session ever</strong>, or another relationship that matches the decision. Every activity shares an entity and timestamp, so the relationship pattern remains stable when the activity names change.</p><p>The underlying order and session history does not need to be rewritten when the attribution method changes.</p></div>
+    </div>
+  </section>
+
+  <section class="section grain-section"><div class="shell"><RowGrainContract /></div></section>
+
+  <section class="section boundary-section">
+    <div class="shell split"><div><p class="eyebrow">The honest boundary</p><h2>Temporal joins depend on trustworthy identity and event time.</h2></div><div class="prose"><p>Activity Schema standardizes the relationship vocabulary; it does not make customer identifiers, timestamps, or event definitions correct automatically. Identity resolution, late data, duplicate events, and source authority remain implementation responsibilities.</p><div class="actions"><a class="button button-primary" href="temporal-joins/">Explore every temporal relationship <span aria-hidden="true">→</span></a><a class="button button-secondary" href="identity-resolution/">Understand identity resolution</a></div></div></div>
+  </section>
+</BaseLayout>
+
+<style>
+  .split { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(48px, 8vw, 100px); }
+  .choice-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 72px; }
+  .choice-grid article { min-height: 260px; padding: 28px; border: 1px solid var(--line); background: var(--white); }
+  .choice-grid span { display: block; margin-bottom: 68px; color: var(--orange); font-size: .68rem; }
+  .choice-grid p { margin: 0; color: var(--steel); }
+  .relationship-section, .grain-section { background: var(--white); }
+  @media (max-width: 760px) { .split, .choice-grid { grid-template-columns: 1fr; } }
+</style>

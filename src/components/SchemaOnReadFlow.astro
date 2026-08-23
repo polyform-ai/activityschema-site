@@ -1,0 +1,82 @@
+---
+import GuideFigure from "./GuideFigure.astro";
+
+const steps = [
+  { x: 20, tag: "MODELED", title: "Activity stream", sub: "narrow event rows" },
+  { x: 192, tag: "GRAIN", title: "Choose cohort", sub: "one row per order" },
+  { x: 364, tag: "PROJECT", title: "Extract features", sub: "plan · channel · total" },
+  { x: 536, tag: "RELATE", title: "Append context", sub: "last session before" },
+  { x: 708, tag: "CONSUME", title: "BI-ready table", sub: "ordinary columns" },
+];
+---
+
+<GuideFigure
+  id="schema-on-read"
+  index="06"
+  title="The model stays stable. The analytical shape is created when it is needed."
+  description="Choose a result grain, project the relevant features, append temporal context, and return a conventional table."
+  minWidth={880}
+>
+  <svg viewBox="0 0 880 340" role="img" aria-labelledby="schema-read-title schema-read-desc">
+    <title id="schema-read-title">Activity stream transformed into a BI-ready table</title>
+    <desc id="schema-read-desc">A five-step process starts with a narrow activity stream, chooses completed orders as the cohort, extracts activity features, appends the last session before each order, and returns a conventional wide table for BI.</desc>
+    <defs>
+      <marker id="schema-arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+        <path d="M0 0 8 4 0 8Z" fill="#167e6c"></path>
+      </marker>
+    </defs>
+
+    <g class="connectors" marker-end="url(#schema-arrow)">
+      <line x1="164" y1="142" x2="188" y2="142"></line>
+      <line x1="336" y1="142" x2="360" y2="142"></line>
+      <line x1="508" y1="142" x2="532" y2="142"></line>
+      <line x1="680" y1="142" x2="704" y2="142"></line>
+    </g>
+
+    <g class="nodes">
+      {steps.map((step, index) => (
+        <g class:list={{ focal: index === 4 }}>
+          <rect class="mask" x={step.x} y="92" width="144" height="100"></rect>
+          <rect class="node" x={step.x} y="92" width="144" height="100"></rect>
+          <rect class="tag-box" x={step.x + 12} y="104" width="56" height="16"></rect>
+          <text class="tag" x={step.x + 40} y="116" text-anchor="middle">{step.tag}</text>
+          <text class="title" x={step.x + 72} y="148" text-anchor="middle">{step.title}</text>
+          <text class="sub" x={step.x + 72} y="168" text-anchor="middle">{step.sub}</text>
+        </g>
+      ))}
+    </g>
+
+    <g class="example">
+      <text class="example-label" x="20" y="244">ONE RESULT ROW</text>
+      <rect x="20" y="260" width="840" height="48"></rect>
+      <line x1="172" y1="260" x2="172" y2="308"></line>
+      <line x1="324" y1="260" x2="324" y2="308"></line>
+      <line x1="476" y1="260" x2="476" y2="308"></line>
+      <line x1="628" y1="260" x2="628" y2="308"></line>
+      <text x="32" y="280">order_id</text><text class="value" x="32" y="298">ord_842</text>
+      <text x="184" y="280">ordered_at</text><text class="value" x="184" y="298">2026-08-23</text>
+      <text x="336" y="280">order_total</text><text class="value" x="336" y="298">$240</text>
+      <text x="488" y="280">last_channel</text><text class="value" x="488" y="298">paid_search</text>
+      <text x="640" y="280">last_campaign</text><text class="value" x="640" y="298">summer_launch</text>
+    </g>
+  </svg>
+</GuideFigure>
+
+<style>
+  .connectors line { stroke: var(--seafoam-dark); stroke-width: 1.2; }
+  .mask { fill: var(--white); }
+  .node { fill: var(--white); stroke: var(--line); rx: 2px; }
+  .tag-box { fill: transparent; stroke: var(--fog); rx: 2px; }
+  .tag, .sub, .example text { font-family: "SFMono-Regular", Consolas, monospace; }
+  .tag { fill: var(--steel); font-size: 7px; letter-spacing: 0.08em; }
+  .title { fill: var(--navy); font-size: 11px; font-weight: 600; }
+  .sub { fill: var(--steel); font-size: 8px; }
+  .focal .node { fill: rgba(68, 180, 139, 0.08); stroke: var(--seafoam-dark); stroke-width: 1.2; }
+  .focal .tag-box { stroke: var(--seafoam-dark); }
+  .focal .tag, .focal .sub { fill: var(--seafoam-dark); }
+  .example-label { fill: var(--orange); font-size: 8px; letter-spacing: 0.1em; }
+  .example rect { fill: var(--canvas); stroke: var(--line); rx: 2px; }
+  .example line { stroke: var(--line); }
+  .example text { fill: var(--fog); font-size: 7px; letter-spacing: 0.05em; }
+  .example .value { fill: var(--navy); font-size: 9px; font-weight: 600; letter-spacing: 0; }
+</style>

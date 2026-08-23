@@ -120,6 +120,7 @@ const boundaries = [
       <div class="prose">
         <p><code>last opened_email before started_subscription</code> is both a precise temporal instruction and a sentence a business user can challenge. The vocabulary of cohort, first, last, before, after, and in between gives an agent reusable analytical moves.</p>
         <p>The goal is not merely to help AI generate more SQL. It is to make the path from question to data to answer legible enough that a person can inspect the chosen activities, definitions, assumptions, and evidence.</p>
+        <a class="button button-secondary" href="querying/">See the complete query grammar <span aria-hidden="true">→</span></a>
       </div>
     </div>
   </section>
@@ -136,6 +137,7 @@ const boundaries = [
           <article class="card">
             <h3>{title}</h3>
             <p>{description}</p>
+            {title === "Identity" && <a href="identity-resolution/">Read the identity guide <span aria-hidden="true">→</span></a>}
           </article>
         ))}
       </div>
