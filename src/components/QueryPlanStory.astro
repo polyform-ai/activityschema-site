@@ -1,0 +1,73 @@
+---
+import GuideFigure from "./GuideFigure.astro";
+
+const steps = [
+  { x: 20, eyebrow: "COHORT", title: "Completed order", detail: "sets every result row", accent: "orange" },
+  { x: 192, eyebrow: "APPEND", title: "Last session", detail: "before this order" },
+  { x: 364, eyebrow: "APPEND", title: "Order revenue", detail: "sum before this order" },
+  { x: 536, eyebrow: "APPEND", title: "First session", detail: "ever for this customer" },
+  { x: 708, eyebrow: "RESULT", title: "Order story", detail: "one row · richer context", accent: "green" },
+];
+---
+
+<GuideFigure
+  id="query-plan-story"
+  index="07"
+  title="Build a dataset as a sentence about each cohort row."
+  description="The query plan names activities and relationships; a tool can generate the repetitive warehouse-specific SQL."
+  minWidth={880}
+>
+  <svg viewBox="0 0 880 372" role="img" aria-labelledby="query-story-title query-story-desc">
+    <title id="query-story-title">An Activity Schema query plan assembled as a story</title>
+    <desc id="query-story-desc">Completed order sets the cohort and result grain. The plan then appends the last session before the order, aggregate prior order revenue, and the first session ever, producing one richer row per completed order.</desc>
+    <defs>
+      <marker id="query-story-arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+        <path d="M0 0 8 4 0 8Z" fill="#167e6c"></path>
+      </marker>
+    </defs>
+
+    <g class="connectors" marker-end="url(#query-story-arrow)">
+      <line x1="164" y1="136" x2="188" y2="136"></line>
+      <line x1="336" y1="136" x2="360" y2="136"></line>
+      <line x1="508" y1="136" x2="532" y2="136"></line>
+      <line x1="680" y1="136" x2="704" y2="136"></line>
+    </g>
+
+    <g class="nodes">
+      {steps.map((step) => (
+        <g class:list={[step.accent]}>
+          <rect class="mask" x={step.x} y="80" width="144" height="112"></rect>
+          <rect class="node" x={step.x} y="80" width="144" height="112"></rect>
+          <text class="eyebrow" x={step.x + 16} y="104">{step.eyebrow}</text>
+          <text class="title" x={step.x + 16} y="140">{step.title}</text>
+          <text class="detail" x={step.x + 16} y="164">{step.detail}</text>
+        </g>
+      ))}
+    </g>
+
+    <g class="plan-lines">
+      <text x="20" y="244">COHORT</text><text class="statement" x="116" y="244">every completed_order</text>
+      <text x="20" y="276">APPEND</text><text class="statement" x="116" y="276">last before started_session → last_touch_channel</text>
+      <text x="20" y="308">APPEND</text><text class="statement" x="116" y="308">aggregate before completed_order · sum revenue → prior_revenue</text>
+      <text x="20" y="340">APPEND</text><text class="statement" x="116" y="340">first ever started_session → first_touch_channel</text>
+    </g>
+    <text class="row-contract" x="860" y="340" text-anchor="end">ROW COUNT = COMPLETED ORDERS · BEFORE AND AFTER</text>
+  </svg>
+</GuideFigure>
+
+<style>
+  .connectors line { stroke: var(--seafoam-dark); stroke-width: 1.2; }
+  .mask { fill: var(--white); }
+  .node { fill: var(--white); stroke: var(--line); rx: 2px; }
+  .nodes .eyebrow, .detail, .plan-lines text, .row-contract { font-family: "SFMono-Regular", Consolas, monospace; }
+  .nodes .eyebrow { fill: var(--steel); font-size: 7px; letter-spacing: 0.1em; }
+  .nodes .title { fill: var(--navy); font-size: 11px; font-weight: 600; }
+  .detail { fill: var(--steel); font-size: 8px; }
+  .orange .node { fill: rgba(236, 101, 43, 0.06); stroke: var(--orange); }
+  .orange .eyebrow, .orange .detail { fill: var(--orange); }
+  .green .node { fill: rgba(68, 180, 139, 0.08); stroke: var(--seafoam-dark); }
+  .green .eyebrow, .green .detail { fill: var(--seafoam-dark); }
+  .plan-lines text { fill: var(--seafoam-dark); font-size: 8px; font-weight: 700; letter-spacing: 0.08em; }
+  .plan-lines .statement { fill: var(--navy); font-size: 9px; font-weight: 500; letter-spacing: 0; }
+  .row-contract { fill: var(--orange); font-size: 7px; letter-spacing: 0.06em; }
+</style>

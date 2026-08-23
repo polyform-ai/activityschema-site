@@ -1,0 +1,132 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import QueryPlanStory from "../components/QueryPlanStory.astro";
+import RowGrainContract from "../components/RowGrainContract.astro";
+
+const questions = [
+  ["1", "What sets the rows?", "Choose one cohort activity. Every occurrence becomes one row in the result."],
+  ["2", "What else do you need to know?", "Choose append activities whose features, timing, or aggregates add context."],
+  ["3", "How are they related?", "Say first, last, or aggregate—and ever, before, after, or in between."],
+  ["4", "Which columns should be returned?", "Project only the activity features, timestamps, dimensions, and measures the result needs."],
+];
+---
+
+<BaseLayout
+  title="How to query Activity Schema"
+  description="Learn how cohort activities, append activities, temporal relationships, and generated SQL turn an activity stream into a useful dataset."
+  path="/querying/"
+>
+  <header class="page-hero shell">
+    <p class="eyebrow">How to query Activity Schema</p>
+    <h1>Describe the story. Generate the SQL.</h1>
+    <p class="lede">Activity streams can be queried with SQL, but the most useful joins are repetitive and easy to get wrong by hand. The intended interface is a small semantic plan: <strong>choose the cohort, append activities, and name their relationships in time.</strong></p>
+  </header>
+
+  <section class="section-tight">
+    <div class="shell"><QueryPlanStory /></div>
+  </section>
+
+  <section class="section">
+    <div class="shell split">
+      <div>
+        <p class="eyebrow">Start with the grain</p>
+        <h2>The cohort decides how many rows exist.</h2>
+      </div>
+      <div class="prose">
+        <p>If the cohort is <code>completed_order</code>, the result begins with one row per completed order. That is the dataset's grain and its cardinality contract.</p>
+        <p>Everything appended to that cohort must resolve to zero or one value for each cohort row. A missing match produces null columns. A matching activity adds columns. It does not add or remove cohort rows.</p>
+        <p>This guarantee belongs to the relationship operator and its generated query—not to an arbitrary handwritten SQL join. Implementations should validate that every cohort <code>activity_id</code> appears exactly once in the result.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section story-section">
+    <div class="shell split">
+      <div>
+        <p class="eyebrow">Assemble one order story</p>
+        <h2>First touch, last touch, and customer value can coexist.</h2>
+      </div>
+      <div class="prose">
+        <p>For every order, append the <strong>last started session before</strong> it to get a last-touch channel. Append the <strong>first started session ever</strong> to get first-touch acquisition. Append an <strong>aggregate of completed orders before</strong> it to calculate how much the customer had spent as of that moment.</p>
+        <p>The activities stay independent. The query assembles them into a wide table that tells one consistent story about each order.</p>
+      </div>
+    </div>
+    <div class="shell grain-wrap"><RowGrainContract /></div>
+  </section>
+
+  <section class="section framework-section">
+    <div class="shell framework-grid">
+      {questions.map(([index, title, description]) => (
+        <article>
+          <span class="mono">0{index}</span>
+          <h3>{title}</h3>
+          <p>{description}</p>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section class="section product-section">
+    <div class="shell split">
+      <div>
+        <p class="eyebrow">Use a relationship-aware tool</p>
+        <h2>Let software own the repetitive join mechanics.</h2>
+      </div>
+      <div class="prose">
+        <p>The Activity Schema specification is designed for tools that translate a cohort-and-append plan into warehouse-specific SQL. A community <a href="https://github.com/bcodell/dbt-activity-schema">dbt proof of concept</a> demonstrates an open query interface. Polyform provides a visual Dataset definition experience that assembles the same concepts and manages the result for reporting and further work.</p>
+        <p>These tools do not remove the need to inspect generated SQL, validate the grain, or test definitions. They make the intended relationship explicit before SQL obscures it.</p>
+        <div class="actions">
+          <a class="button button-primary" href="mailto:ahmed@polyform.ai?subject=Querying%20Activity%20Schema%20with%20Polyform">Ask about Polyform <span aria-hidden="true">↗</span></a>
+          <a class="button button-secondary" href="https://github.com/ActivitySchema/ActivitySchema/blob/main/2.0.md#relationships">Read the relationship specification</a>
+        </div>
+      </div>
+    </div>
+    <div class="shell product-figure-wrap">
+      <figure class="product-figure">
+        <div class="product-image-crop">
+          <img src="images/polyform-dataset-definition.png" alt="Polyform Dataset definition showing a cohort followed by relationship-aware activity joins and aggregate columns" loading="lazy" />
+        </div>
+        <figcaption><span class="mono">PRODUCT EXAMPLE</span><span>Polyform turns the cohort-and-append plan into a visual Dataset definition. It is one implementation of the open standard—not a requirement of the specification.</span></figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section class="section next-section">
+    <div class="shell next-grid">
+      <div><p class="eyebrow">Next</p><h2>Turn the result into a BI table.</h2></div>
+      <div class="prose"><p>Once the cohort and append plan is clear, Schema on Read explains how features become ordinary columns and how the result can be queried, cached, or materialized.</p><a class="button button-primary" href="schema-on-read/">Continue to Schema on Read <span aria-hidden="true">→</span></a></div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .split, .next-grid { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(48px, 8vw, 100px); }
+  .story-section, .product-section { background: var(--white); }
+  .product-figure-wrap { margin-top: 72px; }
+  .product-figure { margin: 0; overflow: hidden; border: 1px solid var(--line); border-radius: var(--radius); background: var(--canvas); box-shadow: var(--shadow-card); }
+  .product-image-crop { overflow: hidden; aspect-ratio: 11 / 7; background: var(--white); }
+  .product-image-crop img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: 50% 26%; }
+  .product-figure figcaption { display: grid; grid-template-columns: 150px 1fr; gap: 24px; padding: 18px 22px; border-top: 1px solid var(--line); color: var(--steel); font-size: .8rem; line-height: 1.55; }
+  .product-figure figcaption .mono { color: var(--orange); font-size: .64rem; }
+  .grain-wrap { margin-top: 72px; }
+  .framework-section { background: var(--midnight); }
+  .framework-grid { display: grid; grid-template-columns: repeat(4, 1fr); border: 1px solid rgba(255, 255, 255, 0.16); }
+  .framework-grid article { min-height: 300px; padding: 24px; border-right: 1px solid rgba(255, 255, 255, 0.16); }
+  .framework-grid article:last-child { border-right: 0; }
+  .framework-grid span { display: block; margin-bottom: 90px; color: var(--seafoam); font-size: 0.68rem; }
+  .framework-grid h3 { color: var(--white); }
+  .framework-grid p { margin: 0; color: rgba(255, 255, 255, 0.65); font-size: 0.92rem; }
+  @media (max-width: 900px) {
+    .framework-grid { grid-template-columns: repeat(2, 1fr); }
+    .framework-grid article:nth-child(2) { border-right: 0; }
+    .framework-grid article { border-bottom: 1px solid rgba(255, 255, 255, 0.16); }
+    .framework-grid article:nth-last-child(-n + 2) { border-bottom: 0; }
+  }
+  @media (max-width: 760px) {
+    .split, .next-grid, .framework-grid { grid-template-columns: 1fr; }
+    .framework-grid article { min-height: 230px; border-right: 0; border-bottom: 1px solid rgba(255, 255, 255, 0.16) !important; }
+    .framework-grid article:last-child { border-bottom: 0 !important; }
+    .framework-grid span { margin-bottom: 48px; }
+    .product-figure figcaption { grid-template-columns: 1fr; gap: 8px; }
+  }
+</style>

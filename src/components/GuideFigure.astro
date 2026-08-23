@@ -1,0 +1,70 @@
+---
+interface Props {
+  id: string;
+  index: string;
+  title: string;
+  description: string;
+  minWidth?: number;
+}
+
+const { id, index, title, description, minWidth = 760 } = Astro.props;
+---
+
+<figure class="guide-figure" aria-labelledby={`${id}-caption`} style={`--figure-min-width: ${minWidth}px`}>
+  <figcaption id={`${id}-caption`}>
+    <span class="mono">FIG {index}</span>
+    <p><strong>{title}</strong> {description}</p>
+  </figcaption>
+  <div class="diagram-scroll">
+    <slot />
+  </div>
+</figure>
+
+<style>
+  .guide-figure {
+    margin: 0;
+    border-block: 1px solid var(--line);
+    background: var(--white);
+  }
+
+  figcaption {
+    display: grid;
+    grid-template-columns: 80px 1fr;
+    gap: 20px;
+    padding: 18px 0;
+    border-bottom: 1px solid var(--line);
+  }
+
+  figcaption span {
+    color: var(--orange);
+    font-size: 0.62rem;
+    letter-spacing: 0.1em;
+  }
+
+  figcaption p {
+    max-width: 680px;
+    margin: 0;
+    color: var(--steel);
+    font-size: 0.8rem;
+  }
+
+  figcaption strong {
+    color: var(--navy);
+  }
+
+  .diagram-scroll {
+    overflow-x: auto;
+  }
+
+  .diagram-scroll :global(svg) {
+    min-width: var(--figure-min-width);
+    font-family: Inter, ui-sans-serif, sans-serif;
+  }
+
+  @media (max-width: 620px) {
+    figcaption {
+      grid-template-columns: 1fr;
+      gap: 8px;
+    }
+  }
+</style>

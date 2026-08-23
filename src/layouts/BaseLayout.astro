@@ -6,9 +6,10 @@ interface Props {
   title: string;
   description: string;
   path?: string;
+  schema?: Record<string, unknown>;
 }
 
-const { title, description, path = Astro.url.pathname } = Astro.props;
+const { title, description, path = Astro.url.pathname, schema } = Astro.props;
 const basePath = import.meta.env.BASE_URL.endsWith("/")
   ? import.meta.env.BASE_URL
   : `${import.meta.env.BASE_URL}/`;
@@ -17,21 +18,27 @@ const canonical = new URL(siteHref(path), Astro.site);
 const documentBase = new URL(basePath, Astro.url.origin).toString();
 const nav = [
   { href: "/activities/", label: "The model" },
-  { href: "/efficiency/", label: "Efficiency" },
+  { href: "/querying/", label: "How you query" },
   { href: "/ai/", label: "For AI" },
-  { href: "/global-standard/", label: "The future" },
+  { href: "/faq/", label: "FAQ" },
   { href: "/mission/", label: "About" },
 ];
 const guideNav = [
   { href: "/activities/", label: "Activities" },
+  { href: "/querying/", label: "How to query" },
+  { href: "/schema-on-read/", label: "Schema on read" },
+  { href: "/join-problem/", label: "The join problem" },
   { href: "/temporal-joins/", label: "Temporal joins" },
+  { href: "/identity-resolution/", label: "Identity resolution" },
   { href: "/efficiency/", label: "Efficiency" },
   { href: "/dimensions/", label: "Dimensions and joins" },
   { href: "/ai/", label: "Activity Schema for AI" },
+  { href: "/faq/", label: "Frequently asked questions" },
   { href: "/global-standard/", label: "A global activity standard" },
   { href: "/mission/", label: "Mission and creator" },
 ];
 const isActive = (href: string) => path === href || (href !== "/" && path.startsWith(href));
+const schemaJson = schema ? JSON.stringify(schema).replaceAll("<", "\\u003c") : null;
 ---
 
 <!doctype html>
@@ -51,6 +58,7 @@ const isActive = (href: string) => path === href || (href !== "/" && path.starts
     <meta property="og:url" content={canonical} />
     <meta property="og:site_name" content="Activity Schema" />
     <meta name="twitter:card" content="summary" />
+    {schemaJson && <script is:inline type="application/ld+json" set:html={schemaJson}></script>}
     <title>{title}</title>
   </head>
   <body>
@@ -95,15 +103,19 @@ const isActive = (href: string) => path === href || (href !== "/" && path.starts
         <div>
           <p class="footer-label">Learn</p>
           <a href={siteHref("/activities/")}>Activities</a>
+          <a href={siteHref("/querying/")}>How to query</a>
+          <a href={siteHref("/schema-on-read/")}>Schema on read</a>
+          <a href={siteHref("/join-problem/")}>The join problem</a>
           <a href={siteHref("/temporal-joins/")}>Temporal joins</a>
-          <a href={siteHref("/efficiency/")}>Efficiency</a>
-          <a href={siteHref("/dimensions/")}>Dimensions and joins</a>
-          <a href={siteHref("/ai/")}>For AI</a>
+          <a href={siteHref("/identity-resolution/")}>Identity resolution</a>
+          <a href={siteHref("/faq/")}>FAQ</a>
         </div>
         <div>
           <p class="footer-label">Build</p>
           <a href="https://github.com/ActivitySchema/ActivitySchema/blob/main/2.0.md">Specification 2.0</a>
           <a href="https://github.com/ActivitySchema/ActivitySchema/blob/main/implementation.md">Implementation guide</a>
+          <a href={siteHref("/efficiency/")}>Efficiency</a>
+          <a href={siteHref("/dimensions/")}>Dimensions and joins</a>
           <a href="https://github.com/ActivitySchema/ActivitySchema">GitHub repository</a>
         </div>
         <div>

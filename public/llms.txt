@@ -7,6 +7,8 @@
 - Model each business concept once as an activity, such as `completed_order` or `opened_email`.
 - Store activities in a consistent activity stream with an identifier, timestamp, entity/customer, activity name, and features.
 - Combine activities at query time with temporal relationships such as first before, last before, first after, or aggregate in between.
+- Start every compiled dataset with a cohort activity. It defines the result grain; correctly implemented appends add columns without adding, removing, or duplicating cohort rows.
+- Treat the activity stream as a staging and semantic layer. For recurring BI use, project feature keys and temporal context into ordinary columns in a view, cached query, or incrementally maintained table.
 - Keep the modeling layer independent: a new question should usually combine existing activities rather than require a new chain of models.
 
 ## Why it is useful for AI
@@ -17,10 +19,15 @@ The standard gives an AI system a compact, consistent vocabulary for discovering
 
 - Website: https://www.activityschema.com/
 - Activity guide: https://www.activityschema.com/activities/
+- How to query: https://www.activityschema.com/querying/
+- Schema on Read guide: https://www.activityschema.com/schema-on-read/
+- The join problem: https://www.activityschema.com/join-problem/
 - Temporal joins guide: https://www.activityschema.com/temporal-joins/
+- Identity resolution guide: https://www.activityschema.com/identity-resolution/
 - Efficiency guide: https://www.activityschema.com/efficiency/
 - Dimensions and joins guide: https://www.activityschema.com/dimensions/
 - AI guide: https://www.activityschema.com/ai/
+- Frequently asked questions: https://www.activityschema.com/faq/
 - Global activity standard concept: https://www.activityschema.com/global-standard/
 - Mission and creator: https://www.activityschema.com/mission/
 - Specification 2.0: https://github.com/ActivitySchema/ActivitySchema/blob/main/2.0.md

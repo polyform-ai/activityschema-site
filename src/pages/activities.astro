@@ -28,6 +28,21 @@ const columns = [
     </div>
   </section>
 
+  <section class="section section-rule contract-section">
+    <div class="shell content-grid">
+      <aside>
+        <p class="eyebrow">More than events</p>
+        <p class="aside-copy">The stream becomes reusable because the events and the relationships share a contract.</p>
+      </aside>
+      <div class="prose">
+        <h2>An event stream with a querying grammar.</h2>
+        <p>Activity Schema is a standardized event stream, but the common row shape is only the beginning. Each activity owns its definition and features. A compact vocabulary—cohort, append, first, last, before, after, and in between—then relates those independent events without requiring a foreign key between source systems.</p>
+        <p>That relationship layer is where the same modeled activities become reusable across customer journeys, attribution, lifecycle analysis, operations, and AI-generated query plans.</p>
+        <a class="button button-secondary" href="querying/">See how the query grammar works <span aria-hidden="true">→</span></a>
+      </div>
+    </div>
+  </section>
+
   <section class="section">
     <div class="shell content-grid">
       <aside>
@@ -196,6 +211,10 @@ const columns = [
 
   .code-section {
     background: var(--white);
+  }
+
+  .contract-section {
+    background: var(--canvas);
   }
 
   @media (max-width: 820px) {

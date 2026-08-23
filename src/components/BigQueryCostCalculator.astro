@@ -1,0 +1,165 @@
+---
+const pricePerTiB = 6.25;
+const defaultRows = 100_000_000;
+const defaultBytesPerRow = 1024;
+const defaultLayers = 3;
+const defaultNewDataPct = 0.5;
+const defaultReadsPerDay = 2;
+const defaultReadScanPct = 10;
+
+const tib = (defaultRows * defaultBytesPerRow) / 1024 ** 4;
+const fullDaily = tib * defaultLayers * 30 * pricePerTiB;
+const fullThirtyMinute = fullDaily * 48;
+const appendAndRead = tib * (defaultNewDataPct / 100) * 30 * pricePerTiB
+  + tib * (defaultReadScanPct / 100) * defaultReadsPerDay * 30 * pricePerTiB;
+const formatUsd = (value: number) => new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: value < 10 ? 2 : 0 }).format(value);
+---
+
+<figure class="cost-model" aria-labelledby="cost-model-title" data-cost-model data-price={pricePerTiB}>
+  <figcaption>
+    <span class="mono">FIG 10</span>
+    <p><strong id="cost-model-title">Model the bytes, cadence, and consumption—not only the row count.</strong> This illustrative on-demand BigQuery scenario is editable and shows gross analysis cost before the free tier, commitments, storage, ingestion, or BI-layer charges.</p>
+  </figcaption>
+  <div class="calculator-layout">
+    <form class="assumptions" aria-label="Cost model assumptions">
+      <label>Rows in the modeled data
+        <select name="rows">
+          <option value="1000000">1 million</option>
+          <option value="10000000">10 million</option>
+          <option value="100000000" selected>100 million</option>
+        </select>
+      </label>
+      <label>Average scanned bytes per row
+        <input name="bytesPerRow" type="number" min="16" max="100000" step="16" value={defaultBytesPerRow} />
+      </label>
+      <label>Full-scan dependent layers
+        <input name="layers" type="number" min="1" max="20" step="1" value={defaultLayers} />
+      </label>
+      <label>New data processed per day
+        <span class="input-with-unit"><input name="newDataPct" type="number" min="0.01" max="100" step="0.1" value={defaultNewDataPct} /><b>%</b></span>
+      </label>
+      <label>Uncached result reads per day
+        <input name="readsPerDay" type="number" min="0" max="1000" step="1" value={defaultReadsPerDay} />
+      </label>
+      <label>Data scanned by each result read
+        <span class="input-with-unit"><input name="readScanPct" type="number" min="0.1" max="100" step="0.1" value={defaultReadScanPct} /><b>%</b></span>
+      </label>
+    </form>
+
+    <div class="results">
+      <div class="result-heading">
+        <div><span class="mono">ILLUSTRATIVE MONTH</span><strong data-dataset-size>{tib.toFixed(3)} TiB modeled data</strong></div>
+        <a href="https://cloud.google.com/bigquery/pricing">$6.25/TiB source <span aria-hidden="true">↗</span></a>
+      </div>
+      <div class="bar-list">
+        <article>
+          <div><h3>Full chain · daily</h3><strong data-full-daily>{formatUsd(fullDaily)}</strong></div>
+          <div class="bar-track"><span class="bar daily" data-bar-daily style={`width: ${(fullDaily / fullThirtyMinute) * 100}%`}></span></div>
+          <p>30 scheduled runs each month.</p>
+        </article>
+        <article class="expensive">
+          <div><h3>Full chain · every 30 minutes</h3><strong data-full-thirty>{formatUsd(fullThirtyMinute)}</strong></div>
+          <div class="bar-track"><span class="bar thirty" data-bar-thirty style="width: 100%"></span></div>
+          <p>1,440 scheduled runs each month—48× the daily cadence.</p>
+        </article>
+        <article class="focused">
+          <div><h3>Append new data + uncached reads</h3><strong data-append-read>{formatUsd(appendAndRead)}</strong></div>
+          <div class="bar-track"><span class="bar append" data-bar-append style={`width: ${Math.max((appendAndRead / fullThirtyMinute) * 100, 0.5)}%`}></span></div>
+          <p>Process the daily delta once; charge result scans only when an uncached read occurs.</p>
+        </article>
+      </div>
+      <div class="ratio-callout">
+        <span class="mono">SCENARIO RATIO</span>
+        <strong data-ratio>{Math.round(fullThirtyMinute / appendAndRead).toLocaleString()}×</strong>
+        <p data-ratio-copy>The 30-minute full chain costs this many times more than append + read in this scenario. This is not a universal Activity Schema claim.</p>
+      </div>
+    </div>
+  </div>
+  <div class="formula-note">
+    <p><strong>Full refresh:</strong> modeled TiB × dependent layers × scheduled runs × $6.25.</p>
+    <p><strong>Append + read:</strong> daily new-data TiB processed once + modeled TiB × result scan share × uncached reads × $6.25.</p>
+  </div>
+</figure>
+
+<script>
+  const model = document.querySelector('[data-cost-model]');
+  if (model instanceof HTMLElement) {
+    const form = model.querySelector('form');
+    const price = Number(model.dataset.price ?? 6.25);
+    const money = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 2 });
+    const formatRatio = (value: number) => new Intl.NumberFormat('en-US', {
+      maximumFractionDigits: value < 10 ? 2 : 1,
+    }).format(value);
+    const numberValue = (name: string) => {
+      const field = form?.elements.namedItem(name);
+      return field instanceof HTMLInputElement || field instanceof HTMLSelectElement ? Number(field.value) : 0;
+    };
+    const setText = (selector: string, value: string) => { const node = model.querySelector(selector); if (node) node.textContent = value; };
+    const setWidth = (selector: string, value: number) => { const node = model.querySelector(selector); if (node instanceof HTMLElement) node.style.width = `${Math.max(0.5, Math.min(value, 100))}%`; };
+    const update = () => {
+      const datasetTiB = numberValue('rows') * numberValue('bytesPerRow') / 1024 ** 4;
+      const fullDailyCost = datasetTiB * numberValue('layers') * 30 * price;
+      const fullThirtyCost = fullDailyCost * 48;
+      const appendCost = datasetTiB * (numberValue('newDataPct') / 100) * 30 * price
+        + datasetTiB * (numberValue('readScanPct') / 100) * numberValue('readsPerDay') * 30 * price;
+      const max = Math.max(fullThirtyCost, fullDailyCost, appendCost, 0.0001);
+      setText('[data-dataset-size]', `${datasetTiB.toFixed(3)} TiB modeled data`);
+      setText('[data-full-daily]', money.format(fullDailyCost));
+      setText('[data-full-thirty]', money.format(fullThirtyCost));
+      setText('[data-append-read]', money.format(appendCost));
+      const comparisonRatio = Math.max(fullThirtyCost, appendCost) / Math.max(Math.min(fullThirtyCost, appendCost), Number.EPSILON);
+      const costsAreComparable = Math.abs(fullThirtyCost - appendCost) / Math.max(fullThirtyCost, appendCost, Number.EPSILON) < 0.005;
+      if (costsAreComparable) {
+        setText('[data-ratio]', '≈1×');
+        setText('[data-ratio-copy]', 'The two scenarios cost about the same under these assumptions. This is not a universal Activity Schema claim.');
+      } else if (appendCost < fullThirtyCost) {
+        setText('[data-ratio]', `${formatRatio(comparisonRatio)}×`);
+        setText('[data-ratio-copy]', 'The 30-minute full chain costs this many times more than append + read in this scenario. This is not a universal Activity Schema claim.');
+      } else {
+        setText('[data-ratio]', `${formatRatio(comparisonRatio)}×`);
+        setText('[data-ratio-copy]', 'Append + read costs this many times more than the 30-minute full chain in this scenario. This is not a universal Activity Schema claim.');
+      }
+      setWidth('[data-bar-daily]', fullDailyCost / max * 100);
+      setWidth('[data-bar-thirty]', fullThirtyCost / max * 100);
+      setWidth('[data-bar-append]', appendCost / max * 100);
+    };
+    form?.addEventListener('input', update);
+  }
+</script>
+
+<style>
+  .cost-model { margin: 0; border-block: 1px solid var(--line); background: var(--white); }
+  figcaption { display: grid; grid-template-columns: 80px 1fr; gap: 20px; padding: 18px 0; border-bottom: 1px solid var(--line); }
+  figcaption > span { color: var(--orange); font-size: .62rem; letter-spacing: .1em; }
+  figcaption p { max-width: 760px; margin: 0; color: var(--steel); font-size: .8rem; }
+  figcaption strong { color: var(--navy); }
+  .calculator-layout { display: grid; grid-template-columns: 300px minmax(0, 1fr); gap: 52px; padding-block: 40px; }
+  .assumptions { display: grid; align-content: start; gap: 16px; }
+  .assumptions label { display: grid; gap: 7px; color: var(--steel); font-size: .72rem; font-weight: 600; }
+  .assumptions input, .assumptions select { width: 100%; min-height: 42px; padding: 8px 10px; border: 1px solid var(--line); border-radius: var(--radius); background: var(--canvas); color: var(--navy); font: inherit; }
+  .input-with-unit { display: grid; grid-template-columns: 1fr 38px; }
+  .input-with-unit b { display: grid; place-items: center; border: 1px solid var(--line); border-left: 0; color: var(--steel); font-weight: 500; }
+  .result-heading { display: flex; justify-content: space-between; gap: 20px; padding-bottom: 20px; border-bottom: 1px solid var(--line); }
+  .result-heading > div { display: grid; gap: 5px; }
+  .result-heading span { color: var(--orange); font-size: .64rem; letter-spacing: .08em; }
+  .result-heading strong { color: var(--navy); }
+  .result-heading a { color: var(--steel); font-size: .72rem; }
+  .bar-list { display: grid; gap: 24px; padding-block: 28px; }
+  .bar-list article > div:first-child { display: flex; align-items: baseline; justify-content: space-between; gap: 20px; }
+  .bar-list h3 { margin: 0; font-size: .92rem; }
+  .bar-list strong { color: var(--navy); font-family: "SFMono-Regular", Consolas, monospace; font-size: .92rem; }
+  .bar-list p { margin: 7px 0 0; color: var(--steel); font-size: .7rem; }
+  .bar-track { height: 14px; margin-top: 10px; border: 1px solid var(--line); background: var(--canvas); }
+  .bar { display: block; height: 100%; min-width: 2px; background: var(--fog); }
+  .bar.thirty { background: var(--orange); }
+  .bar.append { background: var(--seafoam-dark); }
+  .ratio-callout { display: grid; grid-template-columns: auto 110px 1fr; align-items: center; gap: 20px; padding: 18px; border: 1px solid var(--seafoam-dark); background: rgba(68,180,139,.07); }
+  .ratio-callout span { color: var(--seafoam-dark); font-size: .62rem; letter-spacing: .08em; }
+  .ratio-callout strong { color: var(--navy); font-size: 1.8rem; }
+  .ratio-callout p { margin: 0; color: var(--steel); font-size: .74rem; }
+  .formula-note { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; padding: 18px 0; border-top: 1px solid var(--line); }
+  .formula-note p { margin: 0; color: var(--steel); font-size: .72rem; }
+  .formula-note strong { color: var(--navy); }
+  @media (max-width: 820px) { .calculator-layout { grid-template-columns: 1fr; } .assumptions { grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 620px) { figcaption, .formula-note, .assumptions { grid-template-columns: 1fr; } figcaption { gap: 8px; } .result-heading, .bar-list article > div:first-child { align-items: flex-start; flex-direction: column; } .ratio-callout { grid-template-columns: 1fr; } }
+</style>

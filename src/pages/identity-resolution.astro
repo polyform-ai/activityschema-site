@@ -1,0 +1,53 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import IdentityTimeline from "../components/IdentityTimeline.astro";
+
+const stages = [
+  ["Record", "Keep the source-local anonymous identifier on every activity before the global customer is known."],
+  ["Associate", "When both identifiers are observed together, create an inspectable association at that point in time."],
+  ["Bound", "Use effective dates so a reused device or changed user does not create an overlapping many-to-many mapping."],
+  ["Improve", "Add reviewed evidence or corrections later and recompute the affected history deliberately."],
+];
+---
+
+<BaseLayout
+  title="Identity resolution — Activity Schema"
+  description="How customer and anonymous identifiers can be associated, effective-dated, improved, and audited in an Activity Schema implementation."
+  path="/identity-resolution/"
+>
+  <header class="page-hero shell">
+    <p class="eyebrow">Identity resolution</p>
+    <h1>One customer history can begin with many local identifiers.</h1>
+    <p class="lede">Activity Schema assumes that activities for one entity eventually use one global identifier. Before that identity is known, <code>anonymous_customer_id</code> preserves the source-local identity so it can be associated later.</p>
+  </header>
+
+  <section class="section-tight"><div class="shell"><IdentityTimeline /></div></section>
+
+  <section class="section">
+    <div class="shell split"><div><p class="eyebrow">The core contract</p><h2>Identity resolution is required—not magically solved.</h2></div><div class="prose"><p>The specification defines a global <code>customer</code> identifier and an optional <code>anonymous_customer_id</code>. When both appear together, the implementation has evidence that the local identifier and customer were associated at that time.</p><p>A common implementation can use that association to understand earlier anonymous activities. The implementation guide also anticipates multi-user, multi-device mappings and historical corrections.</p></div></div>
+  </section>
+
+  <section class="section stage-section"><div class="shell stage-grid">{stages.map(([title, description], index) => <article><span class="mono">0{index + 1}</span><h3>{title}</h3><p>{description}</p></article>)}</div></section>
+
+  <section class="section improve-section">
+    <div class="shell split"><div><p class="eyebrow">Improve the map over time</p><h2>Better evidence should make identity more useful—and more reviewable.</h2></div><div class="prose"><p>A basic implementation might rely on explicit identify calls. Later it can incorporate other permitted, reviewed signals, such as an authenticated email link opening in a known browser. Those signals should be evaluated under the organization's consent, privacy, retention, and confidence rules.</p><p>An IP address or coincident timing is not proof of a person by itself. Probabilistic associations should remain distinguishable from deterministic ones, reversible, and auditable.</p></div></div>
+  </section>
+
+  <section class="section correction-section">
+    <div class="shell split"><div><p class="eyebrow">Historical corrections</p><h2>A better map can change an old answer.</h2></div><div class="prose"><p>When an anonymous identifier is reassigned or two customer identities are aliased, attribution, journey, and lifetime-value results can change. Record the mapping version, effective period, evidence, and correction time so important outputs can be reproduced or deliberately recomputed.</p><div class="actions"><a class="button button-primary" href="https://github.com/ActivitySchema/ActivitySchema/blob/main/2.0.md#anonymous_customer_id">Read the specification <span aria-hidden="true">↗</span></a><a class="button button-secondary" href="join-problem/">Return to the join problem</a></div></div></div>
+  </section>
+</BaseLayout>
+
+<style>
+  .split { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(48px, 8vw, 100px); }
+  .stage-section, .correction-section { background: var(--midnight); }
+  .stage-grid { display: grid; grid-template-columns: repeat(4, 1fr); border: 1px solid rgba(255,255,255,.16); }
+  .stage-grid article { min-height: 300px; padding: 24px; border-right: 1px solid rgba(255,255,255,.16); }
+  .stage-grid article:last-child { border-right: 0; }
+  .stage-grid span { display: block; margin-bottom: 86px; color: var(--seafoam); font-size: .68rem; }
+  .stage-grid h3, .correction-section h2, .correction-section .eyebrow { color: var(--white); }
+  .stage-grid p, .correction-section p { color: rgba(255,255,255,.65); }
+  .improve-section { background: var(--white); }
+  @media (max-width: 900px) { .stage-grid { grid-template-columns: repeat(2, 1fr); } .stage-grid article:nth-child(2) { border-right: 0; } }
+  @media (max-width: 760px) { .split, .stage-grid { grid-template-columns: 1fr; } .stage-grid article { border-right: 0; border-bottom: 1px solid rgba(255,255,255,.16); } .stage-grid article:last-child { border-bottom: 0; } }
+</style>
