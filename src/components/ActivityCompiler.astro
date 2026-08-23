@@ -227,8 +227,13 @@ const endpoint = import.meta.env.PUBLIC_ACTIVITY_SCHEMA_COMPILE_URL
       if (columns instanceof HTMLInputElement && defaults.columns) columns.value = defaults.columns;
       append.querySelector("[data-add-filter]")?.addEventListener("click", () => addFilter(append));
       append.querySelector("[data-remove-append]")?.addEventListener("click", () => {
+        const appends = [...root.querySelectorAll("[data-append]")];
+        const index = appends.indexOf(append);
+        const adjacentAppend = appends[index + 1] || appends[index - 1];
         append.remove();
         refreshAppendState();
+        const focusTarget = adjacentAppend?.querySelector('[data-field="activity"]') || addAppendButton;
+        if (focusTarget instanceof HTMLElement) focusTarget.focus();
       });
       refreshAppendState();
       if (moveFocus && activity instanceof HTMLInputElement) activity.focus();
