@@ -51,7 +51,7 @@ const schema = {
       <aside>
         <p class="eyebrow">Browse</p>
         <nav aria-label="FAQ categories">
-          {faqCategories.map((category) => <a href={faqHref(category.toLowerCase().replaceAll(' ', '-'))}>{category}</a>)}
+          {faqCategories.map((category) => <a href={faqHref(category.toLowerCase().replaceAll(' ', '-'))} data-faq-browse>{category}</a>)}
         </nav>
       </aside>
       <div class="faq-groups" data-faq-groups>
@@ -89,6 +89,7 @@ const schema = {
     const groups = Array.from(document.querySelectorAll('[data-faq-group]'));
     const count = document.querySelector('[data-faq-count]');
     const noResults = document.querySelector('[data-no-results]');
+    const browseLinks = Array.from(document.querySelectorAll('[data-faq-browse]'));
     let activeCategory = 'all';
 
     const applyFilters = () => {
@@ -116,6 +117,12 @@ const schema = {
       applyFilters();
     }));
     search?.addEventListener('input', applyFilters);
+    browseLinks.forEach((link) => link.addEventListener('click', () => {
+      activeCategory = 'all';
+      if (search instanceof HTMLInputElement) search.value = '';
+      categoryButtons.forEach((button) => button.setAttribute('aria-pressed', String(button instanceof HTMLButtonElement && button.dataset.category === 'all')));
+      applyFilters();
+    }));
 
     if (window.location.hash) {
       const target = document.querySelector(window.location.hash);

@@ -87,7 +87,9 @@ const formatUsd = (value: number) => new Intl.NumberFormat('en-US', { style: 'cu
     const form = model.querySelector('form');
     const price = Number(model.dataset.price ?? 6.25);
     const money = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 2 });
-    const ratioNumber = new Intl.NumberFormat('en-US', { maximumFractionDigits: 1 });
+    const formatRatio = (value: number) => new Intl.NumberFormat('en-US', {
+      maximumFractionDigits: value < 10 ? 2 : 1,
+    }).format(value);
     const numberValue = (name: string) => {
       const field = form?.elements.namedItem(name);
       return field instanceof HTMLInputElement || field instanceof HTMLSelectElement ? Number(field.value) : 0;
@@ -111,10 +113,10 @@ const formatUsd = (value: number) => new Intl.NumberFormat('en-US', { style: 'cu
         setText('[data-ratio]', '≈1×');
         setText('[data-ratio-copy]', 'The two scenarios cost about the same under these assumptions. This is not a universal Activity Schema claim.');
       } else if (appendCost < fullThirtyCost) {
-        setText('[data-ratio]', `${ratioNumber.format(comparisonRatio)}×`);
+        setText('[data-ratio]', `${formatRatio(comparisonRatio)}×`);
         setText('[data-ratio-copy]', 'The 30-minute full chain costs this many times more than append + read in this scenario. This is not a universal Activity Schema claim.');
       } else {
-        setText('[data-ratio]', `${ratioNumber.format(comparisonRatio)}×`);
+        setText('[data-ratio]', `${formatRatio(comparisonRatio)}×`);
         setText('[data-ratio-copy]', 'Append + read costs this many times more than the 30-minute full chain in this scenario. This is not a universal Activity Schema claim.');
       }
       setWidth('[data-bar-daily]', fullDailyCost / max * 100);
