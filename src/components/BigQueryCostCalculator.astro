@@ -71,7 +71,7 @@ const formatUsd = (value: number) => new Intl.NumberFormat('en-US', { style: 'cu
       <div class="ratio-callout">
         <span class="mono">SCENARIO RATIO</span>
         <strong data-ratio>{Math.round(fullThirtyMinute / appendAndRead).toLocaleString()}×</strong>
-        <p>less modeled analysis spend in this specific scenario. This is not a universal Activity Schema claim.</p>
+        <p data-ratio-copy>The 30-minute full chain costs this many times more than append + read in this scenario. This is not a universal Activity Schema claim.</p>
       </div>
     </div>
   </div>
@@ -87,6 +87,7 @@ const formatUsd = (value: number) => new Intl.NumberFormat('en-US', { style: 'cu
     const form = model.querySelector('form');
     const price = Number(model.dataset.price ?? 6.25);
     const money = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 2 });
+    const ratioNumber = new Intl.NumberFormat('en-US', { maximumFractionDigits: 1 });
     const numberValue = (name: string) => {
       const field = form?.elements.namedItem(name);
       return field instanceof HTMLInputElement || field instanceof HTMLSelectElement ? Number(field.value) : 0;
@@ -104,7 +105,18 @@ const formatUsd = (value: number) => new Intl.NumberFormat('en-US', { style: 'cu
       setText('[data-full-daily]', money.format(fullDailyCost));
       setText('[data-full-thirty]', money.format(fullThirtyCost));
       setText('[data-append-read]', money.format(appendCost));
-      setText('[data-ratio]', appendCost > 0 ? `${Math.round(fullThirtyCost / appendCost).toLocaleString()}×` : '—');
+      const comparisonRatio = Math.max(fullThirtyCost, appendCost) / Math.max(Math.min(fullThirtyCost, appendCost), Number.EPSILON);
+      const costsAreComparable = Math.abs(fullThirtyCost - appendCost) / Math.max(fullThirtyCost, appendCost, Number.EPSILON) < 0.005;
+      if (costsAreComparable) {
+        setText('[data-ratio]', '≈1×');
+        setText('[data-ratio-copy]', 'The two scenarios cost about the same under these assumptions. This is not a universal Activity Schema claim.');
+      } else if (appendCost < fullThirtyCost) {
+        setText('[data-ratio]', `${ratioNumber.format(comparisonRatio)}×`);
+        setText('[data-ratio-copy]', 'The 30-minute full chain costs this many times more than append + read in this scenario. This is not a universal Activity Schema claim.');
+      } else {
+        setText('[data-ratio]', `${ratioNumber.format(comparisonRatio)}×`);
+        setText('[data-ratio-copy]', 'Append + read costs this many times more than the 30-minute full chain in this scenario. This is not a universal Activity Schema claim.');
+      }
       setWidth('[data-bar-daily]', fullDailyCost / max * 100);
       setWidth('[data-bar-thirty]', fullThirtyCost / max * 100);
       setWidth('[data-bar-append]', appendCost / max * 100);

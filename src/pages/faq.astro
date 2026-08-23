@@ -4,6 +4,7 @@ import { faqCategories, faqItems } from "../data/faq";
 
 const basePath = import.meta.env.BASE_URL.endsWith('/') ? import.meta.env.BASE_URL : `${import.meta.env.BASE_URL}/`;
 const siteHref = (href: string) => href.startsWith('/') ? `${basePath}${href.replace(/^\/+/, '')}` : href;
+const faqHref = (fragment: string) => siteHref(`/faq/#${fragment}`);
 
 const schema = {
   '@context': 'https://schema.org',
@@ -50,7 +51,7 @@ const schema = {
       <aside>
         <p class="eyebrow">Browse</p>
         <nav aria-label="FAQ categories">
-          {faqCategories.map((category) => <a href={`#${category.toLowerCase().replaceAll(' ', '-')}`}>{category}</a>)}
+          {faqCategories.map((category) => <a href={faqHref(category.toLowerCase().replaceAll(' ', '-'))}>{category}</a>)}
         </nav>
       </aside>
       <div class="faq-groups" data-faq-groups>
@@ -65,7 +66,7 @@ const schema = {
                     <p class="direct-answer">{item.answer}</p>
                     {item.detail && <p>{item.detail}</p>}
                     {item.href && <a href={siteHref(item.href)}>{item.linkLabel ?? 'Learn more'} <span aria-hidden="true">→</span></a>}
-                    <a class="anchor-link" href={`#${item.id}`}>Link to this answer</a>
+                    <a class="anchor-link" href={faqHref(item.id)}>Link to this answer</a>
                   </div>
                 </details>
               ))}
