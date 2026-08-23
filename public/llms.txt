@@ -24,6 +24,8 @@ The standard gives an AI system a compact, consistent vocabulary for discovering
 - The join problem: https://www.activityschema.com/join-problem/
 - Temporal joins guide: https://www.activityschema.com/temporal-joins/
 - Identity resolution guide: https://www.activityschema.com/identity-resolution/
+- Activity Schema V3 proposal: https://www.activityschema.com/v3/
+- Activity Schema MCP and public SQL compiler: https://www.activityschema.com/mcp/
 - Efficiency guide: https://www.activityschema.com/efficiency/
 - Dimensions and joins guide: https://www.activityschema.com/dimensions/
 - AI guide: https://www.activityschema.com/ai/
@@ -34,4 +36,5 @@ The standard gives an AI system a compact, consistent vocabulary for discovering
 - Implementation guide: https://github.com/ActivitySchema/ActivitySchema/blob/main/implementation.md
 - Website source: https://github.com/polyform-ai/activityschema-site
 - Standard repository: https://github.com/ActivitySchema/ActivitySchema
+- dbt Activity Schema proof of concept: https://github.com/bcodell/dbt-activity-schema
 - Community submissions: mailto:ahmed@polyform.ai?subject=Activity%20Schema%20project

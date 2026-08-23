@@ -32,5 +32,8 @@ When the custom domain is ready:
 
 - Website guide source: this repository
 - Specification: <https://github.com/ActivitySchema/ActivitySchema/blob/main/2.0.md>
+- Activity Schema V3 proposal: <https://www.activityschema.com/v3/>
+- Activity Schema MCP and public compiler: <https://www.activityschema.com/mcp/>
 - Implementation guide: <https://github.com/ActivitySchema/ActivitySchema/blob/main/implementation.md>
 - Standard repository: <https://github.com/ActivitySchema/ActivitySchema>
+- dbt proof of concept: <https://github.com/bcodell/dbt-activity-schema>
