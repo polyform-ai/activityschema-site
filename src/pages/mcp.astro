@@ -181,7 +181,7 @@ const siteHref = (href: string) => `${basePath}${href.replace(/^\/+/, "")}`;
         <p>Polyform uses Activity Schema to build maintained analytics and automation systems. The compiler opens the reusable query grammar to everyone. Production trust still depends on defining the right activities, resolving identity, testing results, managing permissions, and keeping business meaning current.</p>
       </div>
       <div class="actions">
-        <a class="button button-primary" href="../v3/">Read the V3 proposal <span aria-hidden="true">→</span></a>
+        <a class="button button-primary" href={siteHref("/v3/")}>Read the V3 proposal <span aria-hidden="true">→</span></a>
         <a class="button button-secondary" href="https://polyform.ai">Learn about Polyform <span aria-hidden="true">↗</span></a>
         <a class="text-link" href="https://github.com/bcodell/dbt-activity-schema">See the dbt proof of concept <span aria-hidden="true">↗</span></a>
       </div>

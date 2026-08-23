@@ -2,6 +2,9 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import TemporalRelationship from "../components/TemporalRelationship.astro";
 
+const basePath = import.meta.env.BASE_URL.endsWith("/") ? import.meta.env.BASE_URL : `${import.meta.env.BASE_URL}/`;
+const siteHref = (href: string) => `${basePath}${href.replace(/^\/+/, "")}`;
+
 const relationships = [
   ["First before", "The earliest related activity before the cohort event."],
   ["Last before", "The most recent related activity before the cohort event."],
@@ -38,8 +41,8 @@ const relationships = [
       <div class="prose">
         <p>The cohort activity is the grain of the result: one row for every completed order, support ticket, session, or other event you are investigating. Append activities add context around each cohort event.</p>
         <p>Because every activity uses the same entity-and-time structure, the shape of a temporal relationship can be reused. Change the activity names; keep the query pattern.</p>
-        <p><a href="../join-problem/">The join problem</a> explains why this matters across systems. <a href="../querying/">How to query Activity Schema</a> turns the vocabulary below into a complete cohort-and-append plan.</p>
-        <p>The <a href="../v3/">V3 proposal</a> separates each readable relationship into two explicit choices: what to <strong>fetch</strong> and where in time to find it.</p>
+        <p><a href={siteHref("/join-problem/")}>The join problem</a> explains why this matters across systems. <a href={siteHref("/querying/")}>How to query Activity Schema</a> turns the vocabulary below into a complete cohort-and-append plan.</p>
+        <p>The <a href={siteHref("/v3/")}>V3 proposal</a> separates each readable relationship into two explicit choices: what to <strong>fetch</strong> and where in time to find it.</p>
       </div>
     </div>
     <div class="shell relationship-grid grid-3">
@@ -85,10 +88,10 @@ const relationships = [
       </div>
     </div>
     <div class="shell actions">
-      <a class="button button-primary" href="../mcp/">Compile a temporal query <span class="arrow" aria-hidden="true">→</span></a>
-      <a class="button button-secondary" href="../querying/">Build a query plan</a>
+      <a class="button button-primary" href={siteHref("/mcp/")}>Compile a temporal query <span class="arrow" aria-hidden="true">→</span></a>
+      <a class="button button-secondary" href={siteHref("/querying/")}>Build a query plan</a>
       <a class="button button-secondary" href="https://github.com/ActivitySchema/ActivitySchema/blob/main/2.0.md#relationships">Read every relationship <span class="arrow" aria-hidden="true">↗</span></a>
-      <a class="button button-secondary" href="../ai/">See how AI can use this</a>
+      <a class="button button-secondary" href={siteHref("/ai/")}>See how AI can use this</a>
     </div>
   </section>
 </BaseLayout>

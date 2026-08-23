@@ -2,6 +2,9 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import DimensionBoundary from "../components/DimensionBoundary.astro";
 
+const basePath = import.meta.env.BASE_URL.endsWith("/") ? import.meta.env.BASE_URL : `${import.meta.env.BASE_URL}/`;
+const siteHref = (href: string) => `${basePath}${href.replace(/^\/+/, "")}`;
+
 const keep = [
   ["Product reference", "A SKU dimension can hold a product name, category, or hierarchy used across the business."],
   ["Entity reference", "A customer or company table can hold current, non-event attributes and identity mappings."],
@@ -39,7 +42,7 @@ const avoid = [
       <div class="prose">
         <p>A dimension is useful when it describes a reusable thing. An activity is useful when it records that something happened. Join them at query time when the answer needs both.</p>
         <p>The Activity Schema 2.0 specification explicitly allows optional entity tables and dimensional joins. Simplicity comes from protecting the activity layer—not from banning every other modeling technique.</p>
-        <p>The <a href="../v3/">Activity Schema V3 proposal</a> makes the join contract explicit and adds time-valid slowly changing dimensions: match the business key, then select the latest dimension version before the activity occurred.</p>
+        <p>The <a href={siteHref("/v3/")}>Activity Schema V3 proposal</a> makes the join contract explicit and adds time-valid slowly changing dimensions: match the business key, then select the latest dimension version before the activity occurred.</p>
       </div>
     </div>
   </section>
