@@ -17,13 +17,34 @@ The lowest-risk cutover is to keep the nameservers at 101domain and change only 
 ## Before changing DNS
 
 1. Merge and verify the site at `https://polyform-ai.github.io/activityschema-site/`.
-2. If the Polyform GitHub organization has not verified `activityschema.com`, complete GitHub's domain-verification TXT-record step first. This does not move website traffic.
+2. Verify `activityschema.com` for the Polyform GitHub organization. This does not move website traffic. Follow the detailed recovery steps below if GitHub says the domain is already taken.
 3. In **Settings -> Pages**, enter `www.activityschema.com` under **Custom domain** and save it before changing the website DNS records. This repository deploys through GitHub Actions, so a checked-in `CNAME` file is not required.
 4. In the GitHub repository, create these Actions variables under **Settings -> Secrets and variables -> Actions -> Variables**:
    - `ACTIVITY_SCHEMA_SITE_URL` = `https://www.activityschema.com`
    - `ACTIVITY_SCHEMA_BASE_PATH` = `/`
 5. Run the **Deploy Astro site to GitHub Pages** workflow and confirm the custom-domain build succeeds.
 6. If possible, lower the TTL of the existing root A records and `www` CNAME to `300` seconds. Because the current TTL is about six hours, wait at least six hours before the final cutover for the shorter TTL to take full effect.
+
+## If GitHub says the domain is already taken
+
+GitHub Pages custom domains must be unique. The domain is still attached to an older GitHub Pages account or repository even though its public DNS currently points to Webflow.
+
+1. Open the [`polyform-ai` organization settings](https://github.com/organizations/polyform-ai/settings/profile). You must be an organization owner.
+2. Select **Pages** under **Code, planning, and automation**. This is the organization Pages screen, not the `activityschema-site` repository Pages screen.
+3. Under **Verified domains**, select **Add a domain** and enter the apex domain `activityschema.com`.
+4. GitHub will show a unique DNS TXT record. Its host will look like `_github-pages-challenge-polyform-ai`. Copy the exact value GitHub provides; do not invent or reuse a value.
+5. In 101domain's **Manage DNS Records** screen, add that TXT record. Do not change the existing Webflow A or CNAME records yet.
+6. Confirm the TXT record is public:
+
+   ```sh
+   dig _github-pages-challenge-polyform-ai.activityschema.com TXT +short
+   ```
+
+7. Return to the organization Pages settings, select **Continue verifying**, and then **Verify**.
+8. Keep the TXT record permanently. Once the apex domain is verified, its immediate `www` subdomain is covered too.
+9. Return to `polyform-ai/activityschema-site` **Settings -> Pages** and add `www.activityschema.com` as the repository's custom domain.
+
+If verification reports that the domain is already *verified* by another GitHub user or organization, GitHub cannot automatically release it. An owner of that older GitHub account must remove the verified domain, or the domain owner must contact [GitHub Support](https://support.github.com/) with proof of DNS control. Do not change the live Webflow records while that ownership issue is unresolved.
 
 ## Change the DNS records in 101domain
 
