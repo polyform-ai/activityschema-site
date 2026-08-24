@@ -73,6 +73,16 @@ const schemaJson = schema ? JSON.stringify(schema).replaceAll("<", "\\u003c") : 
           {nav.map((item) => (
             <a href={siteHref(item.href)} aria-current={isActive(item.href) ? "page" : undefined}>{item.label}</a>
           ))}
+          <details class="guide-menu">
+            <summary class:list={{ "has-active-page": guideNav.some((item) => isActive(item.href)) }}>
+              All guides <span aria-hidden="true">⌄</span>
+            </summary>
+            <div class="guide-menu-panel">
+              {guideNav.map((item) => (
+                <a href={siteHref(item.href)} aria-current={isActive(item.href) ? "page" : undefined}>{item.label}</a>
+              ))}
+            </div>
+          </details>
           <a class="nav-spec" href="https://github.com/ActivitySchema/ActivitySchema/blob/main/2.0.md">
             Read the spec <span aria-hidden="true">↗</span>
           </a>
@@ -202,7 +212,7 @@ const schemaJson = schema ? JSON.stringify(schema).replaceAll("<", "\\u003c") : 
   .desktop-nav a {
     padding: 10px;
     color: var(--slate);
-    font-size: 0.82rem;
+    font-size: 0.88rem;
     text-decoration: none;
   }
 
@@ -225,6 +235,52 @@ const schemaJson = schema ? JSON.stringify(schema).replaceAll("<", "\\u003c") : 
     background: var(--midnight);
     color: var(--white);
     text-decoration: none;
+  }
+
+  .guide-menu {
+    position: relative;
+  }
+
+  .guide-menu summary {
+    padding: 10px;
+    color: var(--slate);
+    font-size: 0.88rem;
+    cursor: pointer;
+    list-style: none;
+  }
+
+  .guide-menu summary::-webkit-details-marker { display: none; }
+  .guide-menu summary:hover,
+  .guide-menu[open] summary,
+  .guide-menu summary.has-active-page {
+    color: var(--navy);
+    text-decoration: underline;
+    text-decoration-color: var(--orange);
+    text-underline-offset: 7px;
+  }
+
+  .guide-menu summary span {
+    display: inline-block;
+    margin-left: 3px;
+    transition: transform 160ms ease;
+  }
+
+  .guide-menu[open] summary span { transform: rotate(180deg); }
+
+  .guide-menu-panel {
+    position: absolute;
+    top: calc(100% + 14px);
+    right: 0;
+    display: grid;
+    width: 260px;
+    padding: 10px;
+    border: 1px solid var(--line);
+    background: var(--white);
+    box-shadow: 0 18px 44px rgba(17, 26, 74, 0.12);
+  }
+
+  .guide-menu-panel a {
+    padding: 11px 12px;
   }
 
   .menu-button,
@@ -253,7 +309,7 @@ const schemaJson = schema ? JSON.stringify(schema).replaceAll("<", "\\u003c") : 
     display: block;
     width: fit-content;
     margin-bottom: 11px;
-    font-size: 0.88rem;
+    font-size: 0.92rem;
     text-decoration: none;
   }
 
