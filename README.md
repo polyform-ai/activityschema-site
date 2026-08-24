@@ -18,19 +18,20 @@ npm run build
 
 ## Hosting
 
-The site deploys from `main` to GitHub Pages at <https://polyform-ai.github.io/activityschema-site/>. The deployment build uses that temporary project path while the permanent domain is being connected.
+The site deploys from `main` to GitHub Pages at <https://polyform-ai.github.io/activityschema-site/>. The deployment build uses that temporary project path until the permanent domain is connected.
 
-When the custom domain is ready:
+The workflow reads two optional GitHub Actions repository variables, which allow the domain to be switched without another code change:
 
-1. Add the domain in the repository's **Settings → Pages** screen.
-2. Add `public/CNAME` containing the domain.
-3. Change `SITE_URL` in `.github/workflows/deploy-pages.yml` to the custom origin.
-4. Change `BASE_PATH` in the workflow to `/`.
-5. Update `public/robots.txt` and `public/sitemap.xml` if the final domain differs from `www.activityschema.com`.
+- `ACTIVITY_SCHEMA_SITE_URL` — set to `https://www.activityschema.com` for the custom domain.
+- `ACTIVITY_SCHEMA_BASE_PATH` — set to `/` for the custom domain.
+
+Follow [`docs/DOMAIN_CUTOVER.md`](docs/DOMAIN_CUTOVER.md) for the verified 101domain-to-GitHub-Pages cutover. The public compiler and MCP release remains intentionally deferred; its checklist is in [`docs/PUBLIC_COMPILER_RELEASE.md`](docs/PUBLIC_COMPILER_RELEASE.md).
 
 ## Canonical resources
 
 - Website guide source: this repository
 - Specification: <https://github.com/ActivitySchema/ActivitySchema/blob/main/2.0.md>
+- Activity Schema V3 proposal: <https://www.activityschema.com/v3/>
 - Implementation guide: <https://github.com/ActivitySchema/ActivitySchema/blob/main/implementation.md>
 - Standard repository: <https://github.com/ActivitySchema/ActivitySchema>
+- dbt proof of concept: <https://github.com/bcodell/dbt-activity-schema>

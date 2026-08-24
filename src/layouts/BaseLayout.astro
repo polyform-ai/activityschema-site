@@ -19,6 +19,7 @@ const documentBase = new URL(basePath, Astro.url.origin).toString();
 const nav = [
   { href: "/activities/", label: "The model" },
   { href: "/querying/", label: "How you query" },
+  { href: "/v3/", label: "V3 proposal" },
   { href: "/ai/", label: "For AI" },
   { href: "/faq/", label: "FAQ" },
   { href: "/mission/", label: "About" },
@@ -30,6 +31,7 @@ const guideNav = [
   { href: "/join-problem/", label: "The join problem" },
   { href: "/temporal-joins/", label: "Temporal joins" },
   { href: "/identity-resolution/", label: "Identity resolution" },
+  { href: "/v3/", label: "Activity Schema V3 proposal" },
   { href: "/efficiency/", label: "Efficiency" },
   { href: "/dimensions/", label: "Dimensions and joins" },
   { href: "/ai/", label: "Activity Schema for AI" },
@@ -112,10 +114,12 @@ const schemaJson = schema ? JSON.stringify(schema).replaceAll("<", "\\u003c") : 
         </div>
         <div>
           <p class="footer-label">Build</p>
+          <a href={siteHref("/v3/")}>V3 proposal</a>
           <a href="https://github.com/ActivitySchema/ActivitySchema/blob/main/2.0.md">Specification 2.0</a>
           <a href="https://github.com/ActivitySchema/ActivitySchema/blob/main/implementation.md">Implementation guide</a>
           <a href={siteHref("/efficiency/")}>Efficiency</a>
           <a href={siteHref("/dimensions/")}>Dimensions and joins</a>
+          <a href="https://github.com/bcodell/dbt-activity-schema">dbt proof of concept</a>
           <a href="https://github.com/ActivitySchema/ActivitySchema">GitHub repository</a>
         </div>
         <div>
