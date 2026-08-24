@@ -25,7 +25,6 @@ The standard gives an AI system a compact, consistent vocabulary for discovering
 - Temporal joins guide: https://www.activityschema.com/temporal-joins/
 - Identity resolution guide: https://www.activityschema.com/identity-resolution/
 - Activity Schema V3 proposal: https://www.activityschema.com/v3/
-- Activity Schema MCP and public SQL compiler: https://www.activityschema.com/mcp/
 - Efficiency guide: https://www.activityschema.com/efficiency/
 - Dimensions and joins guide: https://www.activityschema.com/dimensions/
 - AI guide: https://www.activityschema.com/ai/

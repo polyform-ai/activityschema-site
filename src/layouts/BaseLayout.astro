@@ -20,7 +20,6 @@ const nav = [
   { href: "/activities/", label: "The model" },
   { href: "/querying/", label: "How you query" },
   { href: "/v3/", label: "V3 proposal" },
-  { href: "/mcp/", label: "Activity MCP" },
   { href: "/ai/", label: "For AI" },
   { href: "/faq/", label: "FAQ" },
   { href: "/mission/", label: "About" },
@@ -33,7 +32,6 @@ const guideNav = [
   { href: "/temporal-joins/", label: "Temporal joins" },
   { href: "/identity-resolution/", label: "Identity resolution" },
   { href: "/v3/", label: "Activity Schema V3 proposal" },
-  { href: "/mcp/", label: "Activity Schema MCP" },
   { href: "/efficiency/", label: "Efficiency" },
   { href: "/dimensions/", label: "Dimensions and joins" },
   { href: "/ai/", label: "Activity Schema for AI" },
@@ -116,7 +114,6 @@ const schemaJson = schema ? JSON.stringify(schema).replaceAll("<", "\\u003c") : 
         </div>
         <div>
           <p class="footer-label">Build</p>
-          <a href={siteHref("/mcp/")}>Activity Schema MCP</a>
           <a href={siteHref("/v3/")}>V3 proposal</a>
           <a href="https://github.com/ActivitySchema/ActivitySchema/blob/main/2.0.md">Specification 2.0</a>
           <a href="https://github.com/ActivitySchema/ActivitySchema/blob/main/implementation.md">Implementation guide</a>

@@ -1,9 +1,6 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 
-const basePath = import.meta.env.BASE_URL.endsWith("/") ? import.meta.env.BASE_URL : `${import.meta.env.BASE_URL}/`;
-const siteHref = (href: string) => `${basePath}${href.replace(/^\/+/, "")}`;
-
 const relationshipMappings = [
   ["First ever", "first", "ever", "Earliest matching activity for the entity"],
   ["Last ever", "last", "ever", "Latest matching activity for the entity"],
@@ -219,10 +216,9 @@ const changes = [
         <div class="article-prose">
           <h2>This should be an open query grammar, not a product-only feature.</h2>
           <p>The V3 proposal is informed by the Dataset compiler Polyform operates in production, but it is intended to remain portable. Existing community work already points in the same direction. The <a href="https://github.com/bcodell/dbt-activity-schema">dbt Activity Schema proof of concept</a> provides a macro interface and an experimental Activity Query Language for creating denormalized datasets from an activity stream.</p>
-          <p>The next contribution from Polyform is an unauthenticated compiler and MCP server. Any compatible AI client will be able to submit a V3 query plan and receive warehouse SQL, an explanation, output columns, and warnings—without connecting the service to private data.</p>
+          <p>A future public compiler can make the proposal directly testable: submit a V3 query plan and receive warehouse SQL, an explanation, output columns, and warnings without connecting the compiler to private data. That work remains separate from this specification proposal until its public release is ready.</p>
           <div class="actions">
-            <a class="button button-primary" href={siteHref("/mcp/")}>Try Activity Schema MCP <span class="arrow" aria-hidden="true">→</span></a>
-            <a class="button button-secondary" href="https://github.com/ActivitySchema/ActivitySchema/blob/main/2.0.md">Read canonical V2</a>
+            <a class="button button-primary" href="https://github.com/ActivitySchema/ActivitySchema/blob/main/2.0.md">Read canonical V2</a>
           </div>
         </div>
       </div>
