@@ -53,6 +53,8 @@ const rows = [
 
 <style>
   .stream-figure {
+    width: 100%;
+    min-width: 0;
     margin: 0;
     border-block: 1px solid var(--line);
     background: var(--white);
@@ -92,7 +94,10 @@ const rows = [
   }
 
   .table-wrap {
+    width: 100%;
+    max-width: 100%;
     overflow-x: auto;
+    overscroll-behavior-inline: contain;
   }
 
   table {
