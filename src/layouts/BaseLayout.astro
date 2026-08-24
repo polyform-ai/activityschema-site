@@ -74,9 +74,11 @@ const schemaJson = schema ? JSON.stringify(schema).replaceAll("<", "\\u003c") : 
             <a href={siteHref(item.href)} aria-current={isActive(item.href) ? "page" : undefined}>{item.label}</a>
           ))}
           <details class="guide-menu">
-            <summary>Guides <span aria-hidden="true">⌄</span></summary>
+            <summary class:list={{ "has-active-page": guideNav.some((item) => isActive(item.href)) }}>
+              All guides <span aria-hidden="true">⌄</span>
+            </summary>
             <div class="guide-menu-panel">
-              {guideNav.slice(2, 9).map((item) => (
+              {guideNav.map((item) => (
                 <a href={siteHref(item.href)} aria-current={isActive(item.href) ? "page" : undefined}>{item.label}</a>
               ))}
             </div>
@@ -249,7 +251,21 @@ const schemaJson = schema ? JSON.stringify(schema).replaceAll("<", "\\u003c") : 
 
   .guide-menu summary::-webkit-details-marker { display: none; }
   .guide-menu summary:hover,
-  .guide-menu[open] summary { color: var(--navy); }
+  .guide-menu[open] summary,
+  .guide-menu summary.has-active-page {
+    color: var(--navy);
+    text-decoration: underline;
+    text-decoration-color: var(--orange);
+    text-underline-offset: 7px;
+  }
+
+  .guide-menu summary span {
+    display: inline-block;
+    margin-left: 3px;
+    transition: transform 160ms ease;
+  }
+
+  .guide-menu[open] summary span { transform: rotate(180deg); }
 
   .guide-menu-panel {
     position: absolute;
@@ -260,6 +276,7 @@ const schemaJson = schema ? JSON.stringify(schema).replaceAll("<", "\\u003c") : 
     padding: 10px;
     border: 1px solid var(--line);
     background: var(--white);
+    box-shadow: 0 18px 44px rgba(17, 26, 74, 0.12);
   }
 
   .guide-menu-panel a {
