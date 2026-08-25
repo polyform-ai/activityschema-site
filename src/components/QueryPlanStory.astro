@@ -12,10 +12,8 @@ const steps = [
 
 <GuideFigure
   id="query-plan-story"
-  index="07"
   title="Build a dataset as a sentence about each cohort row."
   description="The query plan names activities and relationships; a tool can generate the repetitive warehouse-specific SQL."
-  minWidth={880}
 >
   <svg viewBox="0 0 880 372" role="img" aria-labelledby="query-story-title query-story-desc">
     <title id="query-story-title">An Activity Schema query plan assembled as a story</title>
@@ -60,14 +58,14 @@ const steps = [
   .mask { fill: var(--white); }
   .node { fill: var(--white); stroke: var(--line); rx: 2px; }
   .nodes .eyebrow, .detail, .plan-lines text, .row-contract { font-family: "SFMono-Regular", Consolas, monospace; }
-  .nodes .eyebrow { fill: var(--steel); font-size: 7px; letter-spacing: 0.1em; }
-  .nodes .title { fill: var(--navy); font-size: 11px; font-weight: 600; }
-  .detail { fill: var(--steel); font-size: 8px; }
+  .nodes .eyebrow { fill: var(--steel); font-size: 10px; letter-spacing: 0.08em; }
+  .nodes .title { fill: var(--navy); font-size: 14px; font-weight: 600; }
+  .detail { fill: var(--steel); font-size: 10px; }
   .orange .node { fill: rgba(236, 101, 43, 0.06); stroke: var(--orange); }
   .orange .eyebrow, .orange .detail { fill: var(--orange); }
   .green .node { fill: rgba(68, 180, 139, 0.08); stroke: var(--seafoam-dark); }
   .green .eyebrow, .green .detail { fill: var(--seafoam-dark); }
-  .plan-lines text { fill: var(--seafoam-dark); font-size: 8px; font-weight: 700; letter-spacing: 0.08em; }
-  .plan-lines .statement { fill: var(--navy); font-size: 9px; font-weight: 500; letter-spacing: 0; }
-  .row-contract { fill: var(--orange); font-size: 7px; letter-spacing: 0.06em; }
+  .plan-lines text { fill: var(--seafoam-dark); font-size: 11px; font-weight: 700; letter-spacing: 0.06em; }
+  .plan-lines .statement { fill: var(--navy); font-size: 12px; font-weight: 500; letter-spacing: 0; }
+  .row-contract { fill: var(--orange); font-size: 10px; letter-spacing: 0.04em; }
 </style>

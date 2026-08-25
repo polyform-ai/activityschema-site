@@ -8,7 +8,6 @@ const rows = [
 
 <figure class="grain-figure" aria-labelledby="grain-title" aria-describedby="grain-desc">
   <figcaption>
-    <span class="mono">FIG 08</span>
     <p><strong id="grain-title">Append context without changing the grain.</strong> <span id="grain-desc">Three completed orders enter. The same three completed orders leave, with columns borrowed from the last session before each order.</span></p>
   </figcaption>
   <div class="grain-scroll">
@@ -36,24 +35,22 @@ const rows = [
 
 <style>
   .grain-figure { margin: 0; border-block: 1px solid var(--line); background: var(--white); }
-  figcaption { display: grid; grid-template-columns: 80px 1fr; gap: 20px; padding: 18px 0; border-bottom: 1px solid var(--line); }
-  figcaption > span { color: var(--orange); font-size: 0.62rem; letter-spacing: 0.1em; }
-  figcaption p { max-width: 680px; margin: 0; color: var(--steel); font-size: 0.8rem; }
+  figcaption { padding: 18px 0; border-bottom: 1px solid var(--line); }
+  figcaption p { max-width: 680px; margin: 0; color: var(--steel); font-size: 0.9rem; line-height: 1.55; }
   figcaption strong { color: var(--navy); }
   .grain-scroll { overflow-x: auto; }
   .grain-layout { display: grid; grid-template-columns: minmax(250px, 0.8fr) 120px minmax(480px, 1.2fr); align-items: center; gap: 24px; padding-block: 36px; }
   .grain-layout > div { min-width: 0; }
-  .table-label { display: block; margin-bottom: 10px; color: var(--seafoam-dark); font-size: 0.66rem; letter-spacing: 0.08em; }
+  .table-label { display: block; margin-bottom: 10px; color: var(--seafoam-dark); font-size: 0.78rem; letter-spacing: 0.06em; }
   table { width: 100%; border-collapse: collapse; border: 1px solid var(--line); }
-  th, td { padding: 11px 12px; border-bottom: 1px solid var(--line); color: var(--slate); font-size: 0.72rem; text-align: left; white-space: nowrap; }
-  th { color: var(--fog); font-family: "SFMono-Regular", Consolas, monospace; font-size: 0.6rem; letter-spacing: 0.08em; text-transform: uppercase; }
+  th, td { padding: 11px 12px; border-bottom: 1px solid var(--line); color: var(--slate); font-size: 0.84rem; text-align: left; white-space: nowrap; }
+  th { color: var(--fog); font-family: "SFMono-Regular", Consolas, monospace; font-size: 0.75rem; letter-spacing: 0.06em; text-transform: uppercase; }
   tbody tr:last-child td { border-bottom: 0; }
-  td code { font-size: 0.68rem; }
-  .operator { display: grid; justify-items: center; gap: 3px; color: var(--steel); font-family: "SFMono-Regular", Consolas, monospace; font-size: 0.68rem; text-align: center; }
+  td code { font-size: 0.8rem; }
+  .operator { display: grid; justify-items: center; gap: 3px; color: var(--steel); font-family: "SFMono-Regular", Consolas, monospace; font-size: 0.8rem; text-align: center; }
   .operator b { color: var(--seafoam-dark); font-weight: 600; }
   .operator i { margin-top: 7px; color: var(--orange); font-size: 1.35rem; font-style: normal; }
   @media (max-width: 760px) {
-    figcaption { grid-template-columns: 1fr; gap: 8px; }
     .grain-layout { min-width: 920px; }
   }
 </style>
