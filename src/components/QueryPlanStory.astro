@@ -6,7 +6,7 @@ const steps = [
   { x: 192, eyebrow: "APPEND", title: "Last session", detail: "before this order" },
   { x: 364, eyebrow: "APPEND", title: "Order revenue", detail: "sum before this order" },
   { x: 536, eyebrow: "APPEND", title: "First session", detail: "ever for this customer" },
-  { x: 708, eyebrow: "RESULT", title: "Order story", detail: "one row · richer context", accent: "green" },
+  { x: 692, width: 172, eyebrow: "RESULT", title: "Order story", detail: "one row · richer context", accent: "green" },
 ];
 ---
 
@@ -28,14 +28,14 @@ const steps = [
       <line x1="164" y1="136" x2="188" y2="136"></line>
       <line x1="336" y1="136" x2="360" y2="136"></line>
       <line x1="508" y1="136" x2="532" y2="136"></line>
-      <line x1="680" y1="136" x2="704" y2="136"></line>
+      <line x1="680" y1="136" x2="688" y2="136"></line>
     </g>
 
     <g class="nodes">
       {steps.map((step) => (
         <g class:list={[step.accent]}>
-          <rect class="mask" x={step.x} y="80" width="144" height="112"></rect>
-          <rect class="node" x={step.x} y="80" width="144" height="112"></rect>
+          <rect class="mask" x={step.x} y="80" width={step.width ?? 144} height="112"></rect>
+          <rect class="node" x={step.x} y="80" width={step.width ?? 144} height="112"></rect>
           <text class="eyebrow" x={step.x + 16} y="104">{step.eyebrow}</text>
           <text class="title" x={step.x + 16} y="140">{step.title}</text>
           <text class="detail" x={step.x + 16} y="164">{step.detail}</text>
