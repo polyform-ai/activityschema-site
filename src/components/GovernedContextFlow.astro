@@ -1,6 +1,5 @@
 <figure class="context-figure" aria-labelledby="context-caption">
   <figcaption id="context-caption">
-    <span class="mono">FIG 07</span>
     <p><strong>Share the language, not the raw warehouse.</strong> Discovery happens across companies; governed analysis stays beside the provider’s data.</p>
   </figcaption>
   <div class="diagram-scroll">
@@ -19,8 +18,8 @@
       <g class="connectors" marker-end="url(#context-arrow)">
         <path d="M154 108 H210"></path>
         <path d="M318 108 H374"></path>
-        <path d="M482 108 H538"></path>
-        <path d="M646 108 H700"></path>
+        <path d="M490 108 H538"></path>
+        <path d="M670 108 H700"></path>
       </g>
       <g class="return-path" marker-end="url(#context-arrow-focus)">
         <path d="M700 184 H174 Q154 184 154 164 V142"></path>
@@ -35,11 +34,11 @@
         <text class="step" x="226" y="94">02 · DISCOVER</text><text class="title" x="226" y="116">Activity catalog</text><text class="sub" x="226" y="132">available context</text>
       </g>
       <g class="node policy">
-        <rect x="374" y="74" width="108" height="68"></rect>
+        <rect x="374" y="74" width="116" height="68"></rect>
         <text class="step" x="390" y="94">03 · GOVERN</text><text class="title" x="390" y="116">Policy gate</text><text class="sub" x="390" y="132">identity · purpose</text>
       </g>
       <g class="node focal">
-        <rect x="538" y="74" width="108" height="68"></rect>
+        <rect x="538" y="74" width="132" height="68"></rect>
         <text class="step" x="554" y="94">04 · RUN</text><text class="title" x="554" y="116">Local query</text><text class="sub" x="554" y="132">activities · warehouse</text>
       </g>
       <g class="node output">
@@ -51,8 +50,8 @@
       <g class="raw-data">
         <rect x="374" y="208" width="272" height="36"></rect>
         <text x="390" y="230">raw rows stay here</text>
-        <path d="M656 226 H704"></path><path class="stop-line" d="M704 214 V238"></path>
-        <text class="stop-label" x="718" y="230">NO RAW EXPORT</text>
+        <path d="M656 226 H670"></path><path class="stop-line" d="M670 214 V238"></path>
+        <text class="stop-label" x="682" y="230">NO RAW EXPORT</text>
       </g>
       <g class="outcomes">
         <text x="24" y="306">BUYER</text><text class="detail" x="86" y="306">better context for the question</text>
@@ -64,34 +63,32 @@
 
 <style>
   .context-figure { margin: 0; border-block: 1px solid var(--line); background: var(--white); }
-  figcaption { display: grid; grid-template-columns: 80px 1fr; gap: 20px; padding: 18px 0; border-bottom: 1px solid var(--line); }
-  figcaption span { color: var(--orange); font-size: 0.62rem; letter-spacing: 0.1em; }
-  figcaption p { max-width: 650px; margin: 0; color: var(--steel); font-size: 0.8rem; }
+  figcaption { padding: 18px 0; border-bottom: 1px solid var(--line); }
+  figcaption p { max-width: 650px; margin: 0; color: var(--steel); font-size: 0.9rem; line-height: 1.55; }
   figcaption strong { color: var(--navy); }
   .diagram-scroll { overflow-x: auto; }
-  svg { min-width: 720px; font-family: Inter, ui-sans-serif, sans-serif; }
+  svg { min-width: 1040px; font-family: Inter, ui-sans-serif, sans-serif; }
   .zone-label, .boundary-label, .step, .sub, .return-label, .raw-data text, .outcomes text { font-family: "SFMono-Regular", Consolas, monospace; }
-  .zone-label { fill: var(--fog); font-size: 8px; letter-spacing: 0.1em; }
+  .zone-label { fill: var(--fog); font-size: 11px; letter-spacing: 0.08em; }
   .trust-boundary { fill: rgba(68, 180, 139, 0.025); stroke: var(--seafoam-dark); stroke-dasharray: 5 4; rx: 2px; }
-  .boundary-label { fill: var(--seafoam-dark); font-size: 7px; letter-spacing: 0.08em; }
+  .boundary-label { fill: var(--seafoam-dark); font-size: 9px; letter-spacing: 0.06em; }
   .connectors path, .return-path path { fill: none; stroke-width: 1.2; }
   .connectors path { stroke: var(--steel); }
   .return-path path { stroke: var(--seafoam-dark); }
   .node rect { fill: var(--white); stroke: var(--line); rx: 2px; }
   .node.policy rect { stroke: var(--orange); }
   .node.focal rect { fill: rgba(68, 180, 139, 0.07); stroke: var(--seafoam-dark); }
-  .step { fill: var(--fog); font-size: 6px; letter-spacing: 0.06em; }
+  .step { fill: var(--fog); font-size: 8px; letter-spacing: 0.04em; }
   .policy .step { fill: var(--orange); }
   .focal .step { fill: var(--seafoam-dark); }
-  .title { fill: var(--navy); font-size: 9px; font-weight: 600; }
-  .sub { fill: var(--fog); font-size: 6px; }
-  .return-label { fill: var(--seafoam-dark); font-size: 7px; letter-spacing: 0.08em; }
+  .title { fill: var(--navy); font-size: 11px; font-weight: 600; }
+  .sub { fill: var(--fog); font-size: 8px; }
+  .return-label { fill: var(--seafoam-dark); font-size: 10px; letter-spacing: 0.06em; }
   .raw-data rect { fill: var(--canvas); stroke: var(--line); rx: 2px; }
-  .raw-data text { fill: var(--slate); font-size: 8px; }
+  .raw-data text { fill: var(--slate); font-size: 11px; }
   .raw-data path { stroke: var(--fog); }
   .raw-data .stop-line { stroke: var(--orange); stroke-width: 2; }
-  .raw-data .stop-label { fill: var(--orange); font-size: 7px; letter-spacing: 0.06em; }
-  .outcomes text { fill: var(--navy); font-size: 8px; font-weight: 700; letter-spacing: 0.08em; }
+  .raw-data .stop-label { fill: var(--orange); font-size: 9px; letter-spacing: 0.04em; }
+  .outcomes text { fill: var(--navy); font-size: 11px; font-weight: 700; letter-spacing: 0.06em; }
   .outcomes .detail { fill: var(--steel); font-weight: 400; letter-spacing: 0; }
-  @media (max-width: 620px) { figcaption { grid-template-columns: 1fr; gap: 8px; } }
 </style>

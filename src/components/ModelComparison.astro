@@ -1,6 +1,5 @@
 <figure class="model-comparison" aria-labelledby="model-comparison-caption">
   <figcaption id="model-comparison-caption">
-    <span class="mono">FIG 02</span>
     <p><strong>Same sources. Same consumers.</strong> The difference is how much modeled structure sits between them.</p>
   </figcaption>
   <div class="diagram-scroll">
@@ -85,31 +84,26 @@
 
 <style>
   .model-comparison { margin: 0; border-block: 1px solid var(--line); }
-  figcaption { display: grid; grid-template-columns: 80px 1fr; gap: 20px; padding: 18px 0; border-bottom: 1px solid var(--line); }
-  figcaption span { color: var(--orange); font-size: 0.62rem; letter-spacing: 0.1em; }
-  figcaption p { max-width: 580px; margin: 0; color: var(--steel); font-size: 0.8rem; }
+  figcaption { padding: 18px 0; border-bottom: 1px solid var(--line); }
+  figcaption p { max-width: 580px; margin: 0; color: var(--steel); font-size: 0.9rem; line-height: 1.55; }
   figcaption strong { color: var(--navy); }
   .diagram-scroll { overflow-x: auto; }
-  svg { min-width: 680px; font-family: Inter, ui-sans-serif, sans-serif; }
+  svg { min-width: 1040px; font-family: Inter, ui-sans-serif, sans-serif; }
   .section-label text, .column-labels text, .change-label, .append-label { font-family: "SFMono-Regular", Consolas, monospace; }
-  .section-label text { fill: var(--navy); font-size: 10px; font-weight: 700; letter-spacing: 0.12em; }
-  .section-label .section-note { fill: var(--fog); font-size: 8px; font-weight: 500; }
+  .section-label text { fill: var(--navy); font-size: 13px; font-weight: 700; letter-spacing: 0.1em; }
+  .section-label .section-note { fill: var(--fog); font-size: 11px; font-weight: 500; }
   .focus-label text:first-child { fill: var(--seafoam-dark); }
-  .column-labels text { fill: var(--fog); font-size: 7px; letter-spacing: 0.12em; }
+  .column-labels text { fill: var(--fog); font-size: 10px; letter-spacing: 0.1em; }
   .divider { stroke: var(--line); }
   .connectors path { fill: none; stroke-width: 1.2; }
   .connectors.muted path { stroke: var(--fog); }
   .connectors.focus path { stroke: var(--seafoam-dark); }
   .nodes rect { fill: var(--white); stroke: var(--line); rx: 2px; }
-  .nodes text { fill: var(--slate); font-size: 9px; text-anchor: middle; }
+  .nodes text { fill: var(--slate); font-size: 12px; text-anchor: middle; }
   .nodes .focal-node { fill: rgba(68, 180, 139, 0.07); stroke: var(--seafoam-dark); stroke-width: 1.2; }
-  .nodes .focal-title { fill: var(--navy); font-size: 13px; font-weight: 600; }
-  .nodes .focal-sub { fill: var(--seafoam-dark); font-family: "SFMono-Regular", Consolas, monospace; font-size: 8px; }
+  .nodes .focal-title { fill: var(--navy); font-size: 17px; font-weight: 600; }
+  .nodes .focal-sub { fill: var(--seafoam-dark); font-family: "SFMono-Regular", Consolas, monospace; font-size: 11px; }
   .change-path { fill: none; stroke: var(--orange); stroke-dasharray: 4 4; }
-  .change-label { fill: var(--orange); font-size: 8px; }
-  .append-label { fill: var(--seafoam-dark); font-size: 8px; }
-  @media (max-width: 620px) {
-    figcaption { grid-template-columns: 1fr; gap: 8px; }
-    svg { min-width: 720px; }
-  }
+  .change-label { fill: var(--orange); font-size: 11px; }
+  .append-label { fill: var(--seafoam-dark); font-size: 11px; }
 </style>

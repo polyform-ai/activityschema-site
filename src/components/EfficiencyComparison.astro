@@ -1,6 +1,5 @@
 <figure class="efficiency-figure" aria-labelledby="efficiency-caption">
   <figcaption id="efficiency-caption">
-    <span class="mono">FIG 05</span>
     <p><strong>Change propagation is the real cost.</strong> Activity Schema narrows the maintained surface to the event definition and the question being answered.</p>
   </figcaption>
   <div class="diagram-scroll">
@@ -42,27 +41,25 @@
 
 <style>
   .efficiency-figure { margin: 0; border-block: 1px solid var(--line); background: var(--white); }
-  figcaption { display: grid; grid-template-columns: 80px 1fr; gap: 20px; padding: 18px 0; border-bottom: 1px solid var(--line); }
-  figcaption span { color: var(--orange); font-size: 0.62rem; letter-spacing: 0.1em; }
-  figcaption p { max-width: 650px; margin: 0; color: var(--steel); font-size: 0.8rem; }
+  figcaption { padding: 18px 0; border-bottom: 1px solid var(--line); }
+  figcaption p { max-width: 650px; margin: 0; color: var(--steel); font-size: 0.9rem; line-height: 1.55; }
   figcaption strong { color: var(--navy); }
   .diagram-scroll { overflow-x: auto; }
-  svg { min-width: 700px; font-family: Inter, ui-sans-serif, sans-serif; }
+  svg { min-width: 1040px; font-family: Inter, ui-sans-serif, sans-serif; }
   .lane-title, .impact-label, .append-note { font-family: "SFMono-Regular", Consolas, monospace; }
-  .lane-title { fill: var(--navy); font-size: 9px; font-weight: 700; letter-spacing: 0.1em; }
+  .lane-title { fill: var(--navy); font-size: 12px; font-weight: 700; letter-spacing: 0.08em; }
   .focus-title { fill: var(--seafoam-dark); }
   .divider { stroke: var(--line); }
   .flow path { fill: none; stroke-width: 1.2; }
   .flow.muted path { stroke: var(--fog); }
   .flow.focus path { stroke: var(--seafoam-dark); }
   .nodes rect { fill: var(--white); stroke: var(--line); rx: 2px; }
-  .nodes text { fill: var(--navy); font-size: 10px; font-weight: 600; text-anchor: middle; }
-  .nodes .sub { fill: var(--fog); font-family: "SFMono-Regular", Consolas, monospace; font-size: 7px; font-weight: 400; }
+  .nodes text { fill: var(--navy); font-size: 12px; font-weight: 600; text-anchor: middle; }
+  .nodes .sub { fill: var(--fog); font-family: "SFMono-Regular", Consolas, monospace; font-size: 10px; font-weight: 400; }
   .nodes .focal { fill: rgba(68, 180, 139, 0.07); stroke: var(--seafoam-dark); stroke-width: 1.2; }
-  .nodes .focal-title { fill: var(--navy); font-size: 14px; }
+  .nodes .focal-title { fill: var(--navy); font-size: 17px; }
   .nodes .focal-sub { fill: var(--seafoam-dark); }
   .impact-bracket { fill: none; stroke: var(--orange); stroke-dasharray: 4 4; }
-  .impact-label { fill: var(--orange); font-size: 7px; letter-spacing: 0.06em; }
-  .append-note { fill: var(--seafoam-dark); font-size: 7px; letter-spacing: 0.06em; }
-  @media (max-width: 620px) { figcaption { grid-template-columns: 1fr; gap: 8px; } }
+  .impact-label { fill: var(--orange); font-size: 10px; letter-spacing: 0.04em; }
+  .append-note { fill: var(--seafoam-dark); font-size: 10px; letter-spacing: 0.04em; }
 </style>

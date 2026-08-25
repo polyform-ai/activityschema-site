@@ -82,6 +82,11 @@ svg {
   max-width: 100%;
 }
 
+.diagram-scroll > svg {
+  width: min(100%, 1040px);
+  margin-inline: auto;
+}
+
 h1,
 h2,
 h3,

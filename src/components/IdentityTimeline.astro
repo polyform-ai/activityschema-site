@@ -4,10 +4,8 @@ import GuideFigure from "./GuideFigure.astro";
 
 <GuideFigure
   id="identity-timeline"
-  index="09"
   title="Identity is a time-bound mapping, not an uncontrolled merge."
   description="Local identifiers can become known, change owners, and be corrected while the original activity history stays inspectable."
-  minWidth={880}
 >
   <svg viewBox="0 0 880 420" role="img" aria-labelledby="identity-title identity-desc">
     <title id="identity-title">Anonymous identifiers mapped to customers over time</title>
@@ -73,19 +71,19 @@ import GuideFigure from "./GuideFigure.astro";
 <style>
   .axis, .tick { stroke: var(--line); }
   .axis-label, .lane-label, .row-sub, .arrow-label, .boundary-label, .legend text { font-family: "SFMono-Regular", Consolas, monospace; }
-  .axis-label { fill: var(--fog); font-size: 8px; }
-  .lane-label { fill: var(--navy); font-size: 8px; font-weight: 700; letter-spacing: 0.1em; }
+  .axis-label { fill: var(--fog); font-size: 11px; }
+  .lane-label { fill: var(--navy); font-size: 11px; font-weight: 700; letter-spacing: 0.08em; }
   .local-row rect, .map-row rect { fill: var(--white); stroke: var(--line); rx: 2px; }
   .local-row.secondary rect { fill: var(--canvas); }
-  .row-title { fill: var(--navy); font-size: 10px; font-weight: 600; }
-  .row-sub { fill: var(--steel); font-size: 8px; }
+  .row-title { fill: var(--navy); font-size: 12px; font-weight: 600; }
+  .row-sub { fill: var(--steel); font-size: 10px; }
   .mapping-arrows path { fill: none; stroke: var(--seafoam-dark); stroke-width: 1.2; }
   .label-mask { fill: var(--white); }
-  .arrow-label { fill: var(--seafoam-dark); font-size: 7px; letter-spacing: 0.08em; }
+  .arrow-label { fill: var(--seafoam-dark); font-size: 10px; letter-spacing: 0.06em; }
   .map-row.maya rect { fill: rgba(68, 180, 139, 0.08); stroke: var(--seafoam-dark); }
   .map-row.rowan rect { fill: rgba(236, 101, 43, 0.07); stroke: var(--orange); }
   .boundary { fill: none; stroke: var(--orange); stroke-dasharray: 4 4; }
-  .boundary-label { fill: var(--orange); font-size: 7px; letter-spacing: 0.06em; }
+  .boundary-label { fill: var(--orange); font-size: 10px; letter-spacing: 0.04em; }
   .legend line { stroke: var(--line); }
-  .legend text { fill: var(--steel); font-size: 7px; letter-spacing: 0.06em; }
+  .legend text { fill: var(--steel); font-size: 10px; letter-spacing: 0.04em; }
 </style>
