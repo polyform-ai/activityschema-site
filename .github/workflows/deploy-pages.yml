@@ -33,8 +33,10 @@ jobs:
       - name: Build site
         run: npm run build
         env:
-          SITE_URL: https://polyform-ai.github.io
-          BASE_PATH: /activityschema-site
+          SITE_URL: https://activityschema.com
+          BASE_PATH: /
+      - name: Verify built asset paths
+        run: npm run verify:build
       - name: Setup Pages
         if: github.event_name != 'pull_request'
         uses: actions/configure-pages@v5

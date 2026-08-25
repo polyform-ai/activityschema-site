@@ -18,15 +18,7 @@ npm run build
 
 ## Hosting
 
-The site deploys from `main` to GitHub Pages at <https://polyform-ai.github.io/activityschema-site/>. The deployment build uses that temporary project path while the permanent domain is being connected.
-
-When the custom domain is ready:
-
-1. Add the domain in the repository's **Settings → Pages** screen.
-2. Add `public/CNAME` containing the domain.
-3. Change `SITE_URL` in `.github/workflows/deploy-pages.yml` to the custom origin.
-4. Change `BASE_PATH` in the workflow to `/`.
-5. Update `public/robots.txt` and `public/sitemap.xml` if the final domain differs from `www.activityschema.com`.
+The site deploys from `main` to GitHub Pages at <https://activityschema.com/>. Because the site uses a custom domain, production builds use the root base path (`/`). `npm run verify:build` confirms that generated Astro asset URLs resolve to files in the deployment artifact.
 
 ## Canonical resources
 
