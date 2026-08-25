@@ -1,8 +1,8 @@
-<figure class="temporal-figure" aria-labelledby="temporal-caption">
+<figure class="temporal-figure graphic-frame" aria-labelledby="temporal-caption">
   <figcaption id="temporal-caption">
     <p><strong>Last before keeps the cohort row intact.</strong> It selects the most recent matching event that happened before it.</p>
   </figcaption>
-  <div class="diagram-scroll">
+  <div class="diagram-scroll graphic-body">
     <svg viewBox="0 0 760 300" role="img" aria-labelledby="temporal-title temporal-desc">
       <title id="temporal-title">Last before temporal relationship</title>
       <desc id="temporal-desc">A customer timeline from 8:42 to 10:08. The opened email at 9:04 is selected because it is the last email before the completed order at 9:41. The later opened email is excluded.</desc>
@@ -50,7 +50,7 @@
 
 <style>
   .temporal-figure { margin: 0; border-block: 1px solid var(--line); background: var(--white); }
-  figcaption { padding: 18px 0; border-bottom: 1px solid var(--line); }
+  figcaption { padding-block: 18px; border-bottom: 1px solid var(--line); }
   figcaption p { max-width: 620px; margin: 0; color: var(--steel); font-size: 0.9rem; line-height: 1.55; }
   figcaption strong { color: var(--navy); }
   .diagram-scroll { overflow-x: auto; }

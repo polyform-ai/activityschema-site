@@ -1,8 +1,8 @@
-<figure class="efficiency-figure" aria-labelledby="efficiency-caption">
+<figure class="efficiency-figure graphic-frame" aria-labelledby="efficiency-caption">
   <figcaption id="efficiency-caption">
     <p><strong>Change propagation is the real cost.</strong> Activity Schema narrows the maintained surface to the event definition and the question being answered.</p>
   </figcaption>
-  <div class="diagram-scroll">
+  <div class="diagram-scroll graphic-body">
     <svg viewBox="0 0 780 324" role="img" aria-labelledby="efficiency-title efficiency-desc">
       <title id="efficiency-title">Update work in layered modeling and Activity Schema</title>
       <desc id="efficiency-desc">In a layered model, a source change can propagate through staging, a model, a mart, and an answer. In Activity Schema, new events are appended to the activity stream and the answer is shaped at query time.</desc>
@@ -41,7 +41,7 @@
 
 <style>
   .efficiency-figure { margin: 0; border-block: 1px solid var(--line); background: var(--white); }
-  figcaption { padding: 18px 0; border-bottom: 1px solid var(--line); }
+  figcaption { padding-block: 18px; border-bottom: 1px solid var(--line); }
   figcaption p { max-width: 650px; margin: 0; color: var(--steel); font-size: 0.9rem; line-height: 1.55; }
   figcaption strong { color: var(--navy); }
   .diagram-scroll { overflow-x: auto; }

@@ -6,11 +6,11 @@ const rows = [
 ];
 ---
 
-<figure class="grain-figure" aria-labelledby="grain-title" aria-describedby="grain-desc">
+<figure class="grain-figure graphic-frame" aria-labelledby="grain-title" aria-describedby="grain-desc">
   <figcaption>
     <p><strong id="grain-title">Append context without changing the grain.</strong> <span id="grain-desc">Three completed orders enter. The same three completed orders leave, with columns borrowed from the last session before each order.</span></p>
   </figcaption>
-  <div class="grain-scroll">
+  <div class="grain-scroll graphic-body">
     <div class="grain-layout">
       <div>
         <span class="table-label mono">COHORT · 3 ROWS</span>
@@ -35,7 +35,7 @@ const rows = [
 
 <style>
   .grain-figure { margin: 0; border-block: 1px solid var(--line); background: var(--white); }
-  figcaption { padding: 18px 0; border-bottom: 1px solid var(--line); }
+  figcaption { padding-block: 18px; border-bottom: 1px solid var(--line); }
   figcaption p { max-width: 680px; margin: 0; color: var(--steel); font-size: 0.9rem; line-height: 1.55; }
   figcaption strong { color: var(--navy); }
   .grain-scroll { overflow-x: auto; }

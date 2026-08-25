@@ -15,6 +15,7 @@
   --seafoam-light: #94efb7;
   --sky: #88deeb;
   --max-width: 1200px;
+  --graphic-inset: clamp(20px, 2vw, 28px);
   --radius: 2px;
   --shadow-card: none;
   --shadow-float: none;
@@ -85,6 +86,11 @@ svg {
 .diagram-scroll > svg {
   width: min(100%, 1040px);
   margin-inline: auto;
+}
+
+.graphic-frame > figcaption,
+.graphic-frame > .graphic-body {
+  padding-inline: var(--graphic-inset);
 }
 
 h1,
