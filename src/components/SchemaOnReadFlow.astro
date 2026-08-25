@@ -4,7 +4,7 @@ import GuideFigure from "./GuideFigure.astro";
 const steps = [
   { x: 20, tag: "MODELED", title: "Activity stream", sub: "narrow event rows" },
   { x: 192, tag: "GRAIN", title: "Choose cohort", sub: "one row per order" },
-  { x: 364, tag: "PROJECT", title: "Extract features", sub: "plan · channel · total" },
+  { x: 356, width: 160, tag: "PROJECT", title: "Extract features", sub: "plan · channel · total" },
   { x: 536, tag: "RELATE", title: "Append context", sub: "last session before" },
   { x: 708, tag: "CONSUME", title: "BI-ready table", sub: "ordinary columns" },
 ];
@@ -26,20 +26,20 @@ const steps = [
 
     <g class="connectors" marker-end="url(#schema-arrow)">
       <line x1="164" y1="142" x2="188" y2="142"></line>
-      <line x1="336" y1="142" x2="360" y2="142"></line>
-      <line x1="508" y1="142" x2="532" y2="142"></line>
+      <line x1="336" y1="142" x2="352" y2="142"></line>
+      <line x1="516" y1="142" x2="532" y2="142"></line>
       <line x1="680" y1="142" x2="704" y2="142"></line>
     </g>
 
     <g class="nodes">
       {steps.map((step, index) => (
         <g class:list={{ focal: index === 4 }}>
-          <rect class="mask" x={step.x} y="92" width="144" height="100"></rect>
-          <rect class="node" x={step.x} y="92" width="144" height="100"></rect>
+          <rect class="mask" x={step.x} y="92" width={step.width ?? 144} height="100"></rect>
+          <rect class="node" x={step.x} y="92" width={step.width ?? 144} height="100"></rect>
           <rect class="tag-box" x={step.x + 12} y="104" width="56" height="16"></rect>
           <text class="tag" x={step.x + 40} y="116" text-anchor="middle">{step.tag}</text>
-          <text class="title" x={step.x + 72} y="148" text-anchor="middle">{step.title}</text>
-          <text class="sub" x={step.x + 72} y="168" text-anchor="middle">{step.sub}</text>
+          <text class="title" x={step.x + (step.width ?? 144) / 2} y="148" text-anchor="middle">{step.title}</text>
+          <text class="sub" x={step.x + (step.width ?? 144) / 2} y="168" text-anchor="middle">{step.sub}</text>
         </g>
       ))}
     </g>
