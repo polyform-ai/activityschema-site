@@ -4,6 +4,7 @@ import { fileURLToPath } from "node:url";
 
 const projectRoot = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const distRoot = join(projectRoot, "dist");
+const googleAnalyticsId = "G-MHNSFGHHD7";
 
 function findHtmlFiles(directory) {
   return readdirSync(directory, { withFileTypes: true }).flatMap((entry) => {
@@ -13,12 +14,25 @@ function findHtmlFiles(directory) {
 }
 
 const references = new Set();
+const pagesMissingGoogleAnalytics = [];
 
 for (const htmlFile of findHtmlFiles(distRoot)) {
   const html = readFileSync(htmlFile, "utf8");
+  if (
+    !html.includes(`googletagmanager.com/gtag/js?id=${googleAnalyticsId}`) ||
+    !html.includes(`gtag("config", "${googleAnalyticsId}")`)
+  ) {
+    pagesMissingGoogleAnalytics.push(htmlFile);
+  }
   for (const match of html.matchAll(/(?:href|src)="([^"?#]*\/_astro\/[^"?#]+)[^\"]*"/g)) {
     references.add(match[1]);
   }
+}
+
+if (pagesMissingGoogleAnalytics.length > 0) {
+  throw new Error(
+    `Built pages are missing Google Analytics ${googleAnalyticsId}:\n${pagesMissingGoogleAnalytics.join("\n")}`,
+  );
 }
 
 if (references.size === 0) {
